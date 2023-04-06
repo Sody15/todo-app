@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import clsx from 'clsx';
+import React, { FC, useState } from 'react';
 
 // Map to hold tag colors based on name
 const tags = new Map<string, string>([
@@ -8,21 +9,26 @@ const tags = new Map<string, string>([
   ['family', '#daf2d6'],
 ]);
 
-export const Tag: FC<{ name: string; showText: Boolean }> = ({
-  name,
-  showText,
-}) => {
+const Tag: FC<{ text: string; showText: Boolean }> = ({ text, showText }) => {
+  const [isSelected, setIsSelected] = useState(false);
+
   return (
     <button
-      key={name}
-      className="flex items-center rounded-xl gap-2 text-custom-dark-1"
+      key={text}
+      className={clsx('flex items-center rounded-xl gap-2 text-custom-dark-1', {
+        'bg-gray-100': isSelected,
+        'py-2 px-3': showText,
+      })}
       type="button"
+      onClick={() => setIsSelected((prevState) => !prevState)}
     >
       <span
         className="rounded-3xl h-10 w-10 inline-block"
-        style={{ backgroundColor: tags.get(name) }}
+        style={{ backgroundColor: tags.get(text) }}
       ></span>
-      {showText && name}
+      {showText && text}
     </button>
   );
 };
+
+export default Tag;

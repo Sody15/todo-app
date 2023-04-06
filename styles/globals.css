@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 body {
-  @apply text-custom-dark-1 font-normal text-base;
+  @apply text-custom-dark-1 font-normal text-sm md:text-base;
 }
 
 h3 {
-  @apply text-xl font-bold;
+  @apply text-lg font-bold md:text-xl;
 }
 
 p {
-  @apply text-base font-light;
+  @apply text-sm font-light md:text-base;
 }

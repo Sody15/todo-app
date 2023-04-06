@@ -7,9 +7,13 @@ export const Checkbox: FC<{ checked: boolean; text: string; name: string }> = ({
   text,
   name,
 }) => {
+  const handleChange = () => {
+    console.log('The checkbox was toggled');
+  };
+
   return (
     <div className={styles.container}>
-      <label htmlFor={name} className="pr-2 lowercase">
+      <label htmlFor={name} className="pr-2 capitalize">
         {text}
       </label>
       <div className="relative w-6 h-6">
@@ -18,6 +22,7 @@ export const Checkbox: FC<{ checked: boolean; text: string; name: string }> = ({
           name={name}
           className={styles.checkbox}
           checked={checked}
+          onChange={handleChange}
         />
         <span className={styles.checkmark}></span>
       </div>

@@ -1,29 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-import Task from '../ui/Task';
-import { TaskModel } from '@/models/task';
+import { Task } from '@components';
+import { TaskModel } from '@models';
 
-const dummyData: TaskModel[] = [
-  {
-    title: 'The first task title',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat et eum saepe illum ut eos quae perspiciatis sit.',
-    done: false,
-    tags: ['work', 'study', 'entertainment'],
-  },
-  {
-    title: 'The second task title',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    done: true,
-    tags: ['study', 'entertainment'],
-  },
-];
-
-const Tasks = () => {
+const Tasks: FC<{ tasks: TaskModel[] }> = ({ tasks }) => {
+  if (!tasks) {
+    return null;
+  }
   return (
-    <div className="flex flex-col gap-6">
-      {dummyData.map((task) => {
-        return <Task key={task.title} task={task} />;
+    <div className="flex flex-col gap-6 md:row-span-1 md:col-span-3 md:flex-row xl:col-span-7 flex-wrap">
+      {tasks.map((task) => {
+        return <Task key={task._id} task={task} />;
       })}
     </div>
   );
