@@ -19,7 +19,7 @@ const Header = () => {
       </button>
       {isAddTask && (
         <Portal>
-          <AddTaskForm onCancel={() => setIsAddTask(false)} />
+          <AddTaskForm onClose={() => setIsAddTask(false)} />
         </Portal>
       )}
     </header>

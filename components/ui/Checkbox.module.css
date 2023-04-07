@@ -1,26 +1,27 @@
 .container {
   @apply flex cursor-pointer;
   label {
-    @apply cursor-pointer;
+    @apply cursor-pointer pr-2 capitalize flex flex-row-reverse;
   }
   .checkbox {
     @apply invisible;
+
     &:checked ~ .checkmark:after,
     &:checked ~ .checkmark:before {
       @apply inline-block;
     }
   }
   .checkmark {
-    @apply inline-block bg-transparent border-2 border-custom-dark-1 rounded-md absolute left-0 w-full h-full;
+    @apply inline-block bg-transparent border-2 border-custom-dark-1 rounded-md w-6 h-6 relative;
     &:hover {
       @apply bg-gray-50;
     }
     &:before {
-      @apply content-[''] absolute w-[0.6rem] h-1 bottom-1 right-[0.6rem] bg-custom-dark-1 rounded-sm hidden;
+      @apply content-[''] absolute w-[0.6rem] h-1 bottom-1 right-[.6rem] bg-custom-dark-1 rounded-sm hidden;
       transform: rotate(-120deg);
     }
     &:after {
-      @apply content-[''] absolute w-[1.1rem] h-1 bottom-2 left-1 bg-custom-dark-1 rounded-sm hidden;
+      @apply content-[''] absolute w-[1.1rem] h-1 bottom-2 left-[0.24rem] bg-custom-dark-1 rounded-sm hidden;
       transform: rotate(-50deg);
     }
   }

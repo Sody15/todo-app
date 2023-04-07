@@ -16,28 +16,28 @@ export default async function handler(
       const client = await clientPromise;
       const _id = new ObjectId(taskId);
 
+      console.log(body);
+      console.log(_id);
+
+      const collection = client.db('todo').collection('tasks');
+
       switch (requestMethod) {
         case 'GET':
-          const task = await client
-            .db('todo')
-            .collection('tasks')
-            .findOne({ _id });
+          const task = await collection.findOne({ _id });
           res.status(200).json(task);
           break;
 
         case 'PUT':
-          const updatedRes = await client
-            .db('todo')
-            .collection('tasks')
-            .updateOne({ _id }, { $set: body });
+        case 'PATCH':
+          const updatedRes = await collection.updateOne(
+            { _id },
+            { $set: body }
+          );
           res.status(200).json(updatedRes);
           break;
 
         case 'DELETE':
-          const deleteRes = await client
-            .db('todo')
-            .collection('tasks')
-            .deleteOne({ _id });
+          const deleteRes = await collection.deleteOne({ _id });
           res.status(200).json(deleteRes);
           break;
 

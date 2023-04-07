@@ -9,16 +9,23 @@ const tags = new Map<string, string>([
   ['family', '#daf2d6'],
 ]);
 
-const Tag: FC<{ text: string; showText: Boolean }> = ({ text, showText }) => {
-  const [isSelected, setIsSelected] = useState(false);
+const Tag: FC<{ text: string; showText: boolean; selected?: boolean }> = ({
+  text,
+  showText,
+  selected = false,
+}) => {
+  const [isSelected, setIsSelected] = useState(selected);
 
   return (
     <button
       key={text}
-      className={clsx('flex items-center rounded-xl gap-2 text-custom-dark-1', {
-        'bg-gray-100': isSelected,
-        'py-2 px-3': showText,
-      })}
+      className={clsx(
+        'flex items-center rounded-xl gap-2 text-custom-dark-1 font-normal',
+        {
+          'bg-gray-100': isSelected,
+          'py-2 px-3': showText,
+        }
+      )}
       type="button"
       onClick={() => setIsSelected((prevState) => !prevState)}
     >

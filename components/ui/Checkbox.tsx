@@ -1,31 +1,33 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import styles from './Checkbox.module.css';
 
-export const Checkbox: FC<{ checked: boolean; text: string; name: string }> = ({
-  checked,
-  text,
-  name,
-}) => {
-  const handleChange = () => {
-    console.log('The checkbox was toggled');
+export const Checkbox: FC<{
+  checked?: boolean;
+  label: string;
+  name: string;
+  onChange: (checked: boolean) => void;
+}> = ({ checked = false, label, name, onChange }) => {
+  const [isChecked, setIsChecked] = useState(checked);
+
+  const checkHandler = () => {
+    setIsChecked((prevState) => !prevState);
+    onChange(!isChecked);
   };
 
   return (
     <div className={styles.container}>
-      <label htmlFor={name} className="pr-2 capitalize">
-        {text}
-      </label>
-      <div className="relative w-6 h-6">
+      <label tabIndex={0} htmlFor={name} onClick={checkHandler}>
+        <span>{label}</span>
         <input
           type="checkbox"
           name={name}
           className={styles.checkbox}
-          checked={checked}
-          onChange={handleChange}
+          checked={isChecked}
+          onChange={() => null}
         />
         <span className={styles.checkmark}></span>
-      </div>
+      </label>
     </div>
   );
 };

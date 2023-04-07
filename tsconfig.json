@@ -18,6 +18,7 @@
     "paths": {
       "@/*": ["./*"],
       "@components": ["./components/index"],
+      "@global": ["./global/index"],
       "@models": ["./models/index"]
     }
   },
