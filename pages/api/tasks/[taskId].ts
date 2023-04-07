@@ -16,9 +16,6 @@ export default async function handler(
       const client = await clientPromise;
       const _id = new ObjectId(taskId);
 
-      console.log(body);
-      console.log(_id);
-
       const collection = client.db('todo').collection('tasks');
 
       switch (requestMethod) {

@@ -1,16 +1,16 @@
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
 import { Loader, Task } from '@components';
 import { TaskModel } from '@models';
-import { API_ENDPOINT } from '@/global/constants';
 import AppContext from '@/global/context';
+import { fetchTasks } from '@/util/query-fn';
 
 const Tasks = () => {
   const { hideDone } = useContext(AppContext);
 
-  console.log(hideDone);
+  console.log('render');
 
   const {
     data: tasks,
@@ -18,17 +18,12 @@ const Tasks = () => {
     isError,
   } = useQuery<TaskModel[]>({
     queryKey: ['tasks'],
-    queryFn: async () => {
-      const tasks = await fetch(API_ENDPOINT + 'tasks')
-        .then((res) => res.json())
-        .catch((err) => console.error(err));
-      return tasks;
-    },
+    queryFn: fetchTasks,
   });
 
   if (isLoading) {
     return (
-      <div className="flex justify-center mt-10 md:col-span-3 xl:col-span-7">
+      <div className="absolute top-60 left-[50%] -translate-x-1/2 ">
         <Loader />
       </div>
     );
@@ -38,32 +33,31 @@ const Tasks = () => {
     return <p>Error loading tasks</p>;
   }
 
-  if (!tasks) {
-    return null;
+  // Filter tasks by done
+  const filteredTasks = tasks.filter((task) =>
+    hideDone && task.done ? null : task
+  );
+
+  if (filteredTasks.length === 0) {
+    const text = hideDone ? 'You have no pending tasks' : 'You have no tasks';
+    const randomIllustration =
+      'illustration-' + Math.floor(Math.random() * (3 - 1 + 1) + 1);
+
+    return (
+      <div className="absolute top-60 left-[50%] -translate-x-1/2 flex flex-col items-center">
+        <h3>{text}</h3>
+        <div className={randomIllustration}></div>
+      </div>
+    );
   }
 
   return (
-    <div className="flex flex-col items-start gap-6 md:col-span-3 md:flex-row xl:col-span-7 flex-wrap">
-      {tasks
-        .filter((task) => (hideDone && task.done ? null : task))
-        .map((task) => {
-          return <Task key={task._id} task={task} />;
-        })}
+    <div className="flex flex-col items-start gap-6 md:flex-row flex-wrap">
+      {filteredTasks.map((task) => {
+        return <Task key={task._id} task={task} />;
+      })}
     </div>
   );
 };
-
-// const Tasks: FC<{ tasks: TaskModel[] }> = ({ tasks }) => {
-//   if (!tasks) {
-//     return null;
-//   }
-//   return (
-//     <div className="flex flex-col gap-6 md:row-span-1 md:col-span-3 md:flex-row xl:col-span-7 flex-wrap">
-//       {tasks.map((task) => {
-//         return <Task key={task._id} task={task} />;
-//       })}
-//     </div>
-//   );
-// };
 
 export default Tasks;

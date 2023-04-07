@@ -24,7 +24,7 @@ const Home = () => {
 
       <div className={ubuntu.className}>
         <Header />
-        <main className="md:grid md:grid-cols-4 xl:grid-cols-8 md:gap-6 ">
+        <main className="md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] ">
           <Nav />
           <Tasks />
         </main>

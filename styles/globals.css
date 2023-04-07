@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply text-custom-dark-1 font-normal text-sm md:text-base;
+  @apply text-custom-dark-1 font-normal text-sm md:text-base bg-white max-w-7xl m-auto;
 }
 
 h3 {
