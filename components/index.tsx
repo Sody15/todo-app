@@ -10,4 +10,4 @@ export { default as Loader } from './ui/Loader';
 export { default as Menu } from './ui/Menu';
 export { default as Tag } from './ui/Tag';
 export { default as TagList } from './ui/TagList';
-export { default as Task } from './ui/Task';
+export { default as TaskCard } from './ui/TaskCard';

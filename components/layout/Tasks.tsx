@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { Loader, Task } from '@components';
+import { Loader, TaskCard } from '@components';
 import { TaskModel } from '@models';
 import AppContext from '@/context/NavContext';
 import { fetchTasks } from '@/util/query-fn';
@@ -21,7 +21,7 @@ const Tasks = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute top-60 left-[50%] -translate-x-1/2 ">
+      <div className='absolute top-60 left-[50%] -translate-x-1/2 '>
         <Loader />
       </div>
     );
@@ -54,7 +54,7 @@ const Tasks = () => {
       'illustration-' + Math.floor(Math.random() * (3 - 1 + 1) + 1);
 
     return (
-      <div className="absolute top-60 left-[50%] -translate-x-1/2 flex flex-col items-center">
+      <div className='absolute top-60 left-[50%] -translate-x-1/2 flex flex-col items-center'>
         <h3>{text}</h3>
         <div className={randomIllustration}></div>
       </div>
@@ -62,9 +62,9 @@ const Tasks = () => {
   }
 
   return (
-    <div className="flex flex-col items-start gap-6 md:flex-row flex-wrap pb-10">
+    <div className='flex flex-col items-start gap-6 md:flex-row flex-wrap pb-10'>
       {filteredTasks.map((task) => {
-        return <Task key={task._id} task={task} />;
+        return <TaskCard key={task._id} task={task} />;
       })}
     </div>
   );

@@ -20,7 +20,7 @@ export const Checkbox: FC<{
       <label tabIndex={0} htmlFor={name} onClick={checkHandler}>
         <span>{label}</span>
         <input
-          type="checkbox"
+          type='checkbox'
           name={name}
           className={styles.checkbox}
           checked={isChecked}

@@ -32,13 +32,13 @@ const Home = () => {
     >
       <Head>
         <title>Todo</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
 
       <div className={ubuntu.className}>
         <Header />
-        <main className="md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] ">
+        <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] '>
           <Nav />
           <Tasks />
         </main>

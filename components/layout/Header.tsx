@@ -8,11 +8,11 @@ const Header = () => {
   const [isAddTask, setIsAddTask] = useState(false);
 
   return (
-    <header className="flex justify-between">
-      <Image src={logo} alt="logo" width={100} priority={true} />
+    <header className='flex justify-between'>
+      <Image src={logo} alt='logo' width={100} priority={true} />
       <button
-        className="text-6xl text-custom-dark-1"
-        type="button"
+        className='text-6xl text-custom-dark-1'
+        type='button'
         onClick={() => setIsAddTask((prevState) => !prevState)}
       >
         +

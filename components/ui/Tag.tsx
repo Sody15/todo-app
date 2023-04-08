@@ -33,12 +33,12 @@ const Tag: FC<{
           'py-2 px-3': showText,
         }
       )}
-      type="button"
+      type='button'
       // onClick={() => setIsSelected((prevState) => !prevState)}
       onClick={() => setIsSelected((prevState) => !prevState)}
     >
       <span
-        className="rounded-3xl h-10 w-10 inline-block"
+        className='rounded-3xl h-10 w-10 inline-block'
         style={{ backgroundColor: tags.get(text) }}
       ></span>
       {showText && text}

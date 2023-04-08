@@ -8,7 +8,9 @@ import { deleteTask, updateTask } from '@/util/query-fn';
 
 const DESCR_DISPLAY_LENGTH = 300;
 
-const Task: FC<{ task: TaskModel }> = ({ task }) => {
+const TaskCard: FC<{ task: TaskModel }> = ({ task }) => {
+  const client = useQueryClient();
+
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [isUpdateTask, setIsUpdateTask] = useState(false);
   const [isDone, setIsDone] = useState(task.done);
@@ -16,8 +18,6 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
   const largeDesc = useMemo(() => {
     return task.description.length > DESCR_DISPLAY_LENGTH;
   }, [task.description]);
-
-  const client = useQueryClient();
 
   const deleteMutation = useMutation({
     mutationFn: (_id: number) => deleteTask(_id),
@@ -44,8 +44,6 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
       }),
   });
 
-  const editHandler = () => {};
-
   const truncateDesc = (): string => {
     if (largeDesc && !showFullDesc) {
       return task.description.slice(0, DESCR_DISPLAY_LENGTH) + '...';
@@ -55,14 +53,20 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
 
   return (
     <>
-      <div className="bg-custom-yellow p-6 rounded-xl w-full max-w-xl xl:max-w-sm">
-        <div className="flex justify-between items-center">
+      <div className='bg-custom-yellow p-6 rounded-xl w-full max-w-xl xl:max-w-sm'>
+        {
+          // Title & Menu
+        }
+        <div className='flex justify-between items-center'>
           <h3 className={clsx({ 'line-through': isDone })}>{task.title}</h3>
           <Menu
             onEdit={() => setIsUpdateTask((prevState) => !prevState)}
             onDelete={() => deleteMutation.mutate(task._id!)}
           />
         </div>
+        {
+          // Description
+        }
         <p
           className={clsx(
             'my-3',
@@ -75,8 +79,11 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
         >
           {truncateDesc()}
         </p>
-        <div className="flex justify-between items-center">
-          <div className="flex gap-3">
+        {
+          // Tags & Done Checkbox
+        }
+        <div className='flex justify-between items-center'>
+          <div className='flex gap-3'>
             {task.tags.map((tag) => {
               return (
                 <Tag
@@ -91,8 +98,8 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
           </div>
           <div>
             <Checkbox
-              name="done"
-              label="done"
+              name='done'
+              label='done'
               checked={isDone}
               onChange={(checked) => {
                 setIsDone(checked);
@@ -102,11 +109,14 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
           </div>
         </div>
       </div>
+      {
+        // Add Task Form on Edit
+      }
       {isUpdateTask && (
         <Portal>
           <AddTaskForm
             task={task}
-            type="Update"
+            type='Update'
             onClose={() => setIsUpdateTask(false)}
           />
         </Portal>
@@ -115,4 +125,4 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
   );
 };
 
-export default Task;
+export default TaskCard;
