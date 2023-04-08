@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 // Map to hold tag colors based on name
 const tags = new Map<string, string>([
@@ -9,12 +9,19 @@ const tags = new Map<string, string>([
   ['family', '#daf2d6'],
 ]);
 
-const Tag: FC<{ text: string; showText: boolean; selected?: boolean }> = ({
-  text,
-  showText,
-  selected = false,
-}) => {
+const Tag: FC<{
+  text: string;
+  showText: boolean;
+  selected?: boolean;
+  onSelect: (text: string) => void;
+  onDeSelect: (text: string) => void;
+}> = ({ text, showText, selected = false, onSelect, onDeSelect }) => {
   const [isSelected, setIsSelected] = useState(selected);
+
+  useEffect(() => {
+    isSelected ? onSelect(text) : onDeSelect(text);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSelected]);
 
   return (
     <button
@@ -27,6 +34,7 @@ const Tag: FC<{ text: string; showText: boolean; selected?: boolean }> = ({
         }
       )}
       type="button"
+      // onClick={() => setIsSelected((prevState) => !prevState)}
       onClick={() => setIsSelected((prevState) => !prevState)}
     >
       <span

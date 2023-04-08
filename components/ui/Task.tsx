@@ -79,7 +79,13 @@ const Task: FC<{ task: TaskModel }> = ({ task }) => {
           <div className="flex gap-3">
             {task.tags.map((tag) => {
               return (
-                <Tag key={`${task._id} + ${tag}`} showText={false} text={tag} />
+                <Tag
+                  key={`${task._id} + ${tag}`}
+                  showText={false}
+                  text={tag}
+                  onSelect={() => null}
+                  onDeSelect={() => null}
+                />
               );
             })}
           </div>

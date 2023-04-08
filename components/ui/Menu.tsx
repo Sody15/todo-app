@@ -28,13 +28,13 @@ const Menu: FC<{ onEdit: () => void; onDelete: () => void }> = ({
       {isMenuOpen && (
         <div className="absolute right-0 bg-white rounded-xl shadow-lg z-10">
           <button
-            className="p-4 border-b-2 w-48 text-left hover:bg-gray-50 rounded-t-xl"
+            className="p-4 border-b-2 w-48 text-left text-gray-400 hover:bg-gray-50 rounded-t-xl"
             onClick={editHandler}
           >
             Edit...
           </button>
           <button
-            className="p-4 w-48 text-left hover:bg-gray-50 rounded-b-xl"
+            className="p-4 w-48 text-left text-gray-400 hover:bg-gray-50 rounded-b-xl"
             onClick={deleteHandler}
           >
             Delete

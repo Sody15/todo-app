@@ -4,13 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Loader, Task } from '@components';
 import { TaskModel } from '@models';
-import AppContext from '@/global/context';
+import AppContext from '@/context/NavContext';
 import { fetchTasks } from '@/util/query-fn';
 
 const Tasks = () => {
-  const { hideDone } = useContext(AppContext);
-
-  console.log('render');
+  const { hideDone, tagFilters } = useContext(AppContext);
 
   const {
     data: tasks,
@@ -33,10 +31,22 @@ const Tasks = () => {
     return <p>Error loading tasks</p>;
   }
 
-  // Filter tasks by done
-  const filteredTasks = tasks.filter((task) =>
-    hideDone && task.done ? null : task
-  );
+  let filteredTasks = tasks;
+
+  // Filter tasks by- done
+  if (hideDone) {
+    filteredTasks = tasks.filter((task) => (task.done ? null : task));
+  }
+
+  // Filter tasks by- tags
+  if (tagFilters.length > 0) {
+    filteredTasks = filteredTasks.filter((task) => {
+      if (task.tags.some((tag) => tagFilters.includes(tag))) {
+        return task;
+      }
+      return null;
+    });
+  }
 
   if (filteredTasks.length === 0) {
     const text = hideDone ? 'You have no pending tasks' : 'You have no tasks';

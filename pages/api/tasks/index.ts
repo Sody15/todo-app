@@ -14,8 +14,8 @@ export default async function handler(
 
       res.status(200).json(data);
     } else if (req.method === 'POST') {
-      // data = await client.db('todo').collection('tasks').insertOne(req.body);
-      data = await client.db('todo').collection('tasks').insertMany(req.body);
+      data = await client.db('todo').collection('tasks').insertOne(req.body);
+      // data = await client.db('todo').collection('tasks').insertMany(req.body);
 
       res.status(200).json(data);
     } else {

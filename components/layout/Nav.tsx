@@ -1,22 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { Checkbox, Tag } from '@components';
-import { TAGS } from '@/global/constants';
-import AppContext from '@/global/context';
+import { Checkbox, Tag, TagList } from '@components';
+import NavContext from '@/context/NavContext';
 
 const Nav = () => {
-  const { hideDone, setHideDone } = useContext(AppContext);
+  const { toggleHideDone, updateFilters } = useContext(NavContext);
 
   return (
     <div className="flex justify-between my-12 flex-wrap md:justify-start md:m-0 gap-y-3 md:flex-col md:gap-8  ">
-      {TAGS.map((tag) => (
-        <Tag key={tag} text={tag} showText={true} />
-      ))}
+      <TagList onTagChange={(tags) => updateFilters(tags)} />
       <div className="hidden md:block py-6">
         <Checkbox
           name="hide-done"
           label="Hide Done Tasks"
-          onChange={() => setHideDone((prevVal) => !prevVal)}
+          onChange={toggleHideDone}
         />
       </div>
     </div>
