@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useReducer, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useEffect, useReducer, useRef, useState } from 'react';
 import { Ubuntu } from 'next/font/google';
 
 import clsx from 'clsx';
@@ -70,6 +70,13 @@ const AddTaskForm: FC<{
     hasError: false,
     errorText: 'No error',
   });
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   const tagChange = (tags: string[]) => {
     dispatch({
@@ -167,12 +174,12 @@ const AddTaskForm: FC<{
       <div className='backdrop left-0 absolute h-full w-full bg-black bg-opacity-60' onClick={onClose}></div>
       <form
         className={clsx(
-          'absolute  h-full bg-white p-6 z-20 w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12',
+          'absolute bg-white p-6 z-20 h-screen w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12 overflow-scroll',
           ubuntu.className
         )}
         onSubmit={submitHandler}
       >
-        <div className='flex justify-between mb-4 lg:mb-6'>
+        <div className='flex justify-between mb-4 lg:mb-0'>
           <button onClick={onClose} id='cancel-btn' className='rounded-lg py-1'>
             Cancel
           </button>

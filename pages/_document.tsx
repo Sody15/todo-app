@@ -4,8 +4,8 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head />
+      <div id='portal' />
       <body className='px-6'>
-        <div id='portal' />
         <Main />
         <NextScript />
       </body>
