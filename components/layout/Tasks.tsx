@@ -62,7 +62,7 @@ const Tasks = () => {
   }
 
   return (
-    <div className="flex flex-col items-start gap-6 md:flex-row flex-wrap">
+    <div className="flex flex-col items-start gap-6 md:flex-row flex-wrap pb-10">
       {filteredTasks.map((task) => {
         return <Task key={task._id} task={task} />;
       })}
