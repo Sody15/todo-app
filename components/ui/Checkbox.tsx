@@ -19,13 +19,7 @@ export const Checkbox: FC<{
     <div className={styles.container}>
       <label tabIndex={0} htmlFor={name} onClick={checkHandler}>
         <span>{label}</span>
-        <input
-          type='checkbox'
-          name={name}
-          className={styles.checkbox}
-          checked={isChecked}
-          onChange={() => null}
-        />
+        <input type='checkbox' name={name} className={styles.checkbox} checked={isChecked} onChange={() => null} />
         <span className={styles.checkmark}></span>
       </label>
     </div>

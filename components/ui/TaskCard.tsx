@@ -68,14 +68,8 @@ const TaskCard: FC<{ task: TaskModel }> = ({ task }) => {
           // Description
         }
         <p
-          className={clsx(
-            'my-3',
-            { 'cursor-pointer': largeDesc },
-            { 'line-through': isDone }
-          )}
-          onClick={() =>
-            largeDesc ? setShowFullDesc((prevVal) => !prevVal) : null
-          }
+          className={clsx('my-3', { 'cursor-pointer': largeDesc }, { 'line-through': isDone })}
+          onClick={() => (largeDesc ? setShowFullDesc((prevVal) => !prevVal) : null)}
         >
           {truncateDesc()}
         </p>
@@ -114,11 +108,7 @@ const TaskCard: FC<{ task: TaskModel }> = ({ task }) => {
       }
       {isUpdateTask && (
         <Portal>
-          <AddTaskForm
-            task={task}
-            type='Update'
-            onClose={() => setIsUpdateTask(false)}
-          />
+          <AddTaskForm task={task} type='Update' onClose={() => setIsUpdateTask(false)} />
         </Portal>
       )}
     </>

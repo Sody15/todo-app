@@ -1,9 +1,6 @@
 import React, { FC, useState } from 'react';
 
-const Menu: FC<{ onEdit: () => void; onDelete: () => void }> = ({
-  onEdit,
-  onDelete,
-}) => {
+const Menu: FC<{ onEdit: () => void; onDelete: () => void }> = ({ onEdit, onDelete }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const editHandler = () => {
@@ -33,10 +30,7 @@ const Menu: FC<{ onEdit: () => void; onDelete: () => void }> = ({
           >
             Edit...
           </button>
-          <button
-            className='p-4 w-48 text-left text-gray-400 hover:bg-gray-50 rounded-b-xl'
-            onClick={deleteHandler}
-          >
+          <button className='p-4 w-48 text-left text-gray-400 hover:bg-gray-50 rounded-b-xl' onClick={deleteHandler}>
             Delete
           </button>
         </div>

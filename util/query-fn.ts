@@ -6,10 +6,7 @@ export const fetchTasks = (): Promise<TaskModel[]> => {
     .catch((err) => console.error(err));
 };
 
-export const updateTask = (
-  _id: number,
-  updatedTask: Partial<TaskModel>
-): Promise<any> => {
+export const updateTask = (_id: number, updatedTask: Partial<TaskModel>): Promise<any> => {
   return fetch('/api/tasks/' + _id, {
     method: 'PATCH',
     body: JSON.stringify(updatedTask),

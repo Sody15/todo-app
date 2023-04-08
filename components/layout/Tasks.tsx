@@ -50,8 +50,7 @@ const Tasks = () => {
 
   if (filteredTasks.length === 0) {
     const text = hideDone ? 'You have no pending tasks' : 'You have no tasks';
-    const randomIllustration =
-      'illustration-' + Math.floor(Math.random() * (3 - 1 + 1) + 1);
+    const randomIllustration = 'illustration-' + Math.floor(Math.random() * (3 - 1 + 1) + 1);
 
     return (
       <div className='absolute top-60 left-[50%] -translate-x-1/2 flex flex-col items-center'>

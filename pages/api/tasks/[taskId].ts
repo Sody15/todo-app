@@ -3,10 +3,7 @@ import { TaskModel } from '@/models/task';
 import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { taskId } = req.query;
     const requestMethod = req.method;
@@ -26,10 +23,7 @@ export default async function handler(
 
         case 'PUT':
         case 'PATCH':
-          const updatedRes = await collection.updateOne(
-            { _id },
-            { $set: body }
-          );
+          const updatedRes = await collection.updateOne({ _id }, { $set: body });
           res.status(200).json(updatedRes);
           break;
 
