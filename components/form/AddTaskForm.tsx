@@ -117,7 +117,6 @@ const AddTaskForm: FC<{
         )}
         onSubmit={submitHandler}
       >
-        {JSON.stringify(formState)}
         <div className="flex justify-between mb-20 lg:mb-6">
           <button
             onClick={onClose}
