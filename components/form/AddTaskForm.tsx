@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader, TagList } from '@components';
 import { Task } from '@/models';
 import { addTask, updateTask } from '@/util/query-fn';
+import { DESC_LENGTH, TITLE_LENGTH } from '@/global';
 
 const ubuntu = Ubuntu({
   weight: ['300', '500', '700'],
@@ -229,6 +230,7 @@ const AddTaskForm: FC<{
               placeholder='add a title ...'
               className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
               onChange={titleChange}
+              maxLength={TITLE_LENGTH}
             />
           </div>
           {
@@ -244,7 +246,7 @@ const AddTaskForm: FC<{
               name='description'
               placeholder='add a description ...'
               rows={5}
-              maxLength={500}
+              maxLength={DESC_LENGTH}
               required
               defaultValue={task?.description}
               className='bg-zinc-100 rounded-lg resize-none px-4 py-2 w-full'
