@@ -14,7 +14,7 @@ const TaskCard: FC<{ task: Task }> = ({ task }) => {
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [isUpdateTask, setIsUpdateTask] = useState(false);
   const [isDone, setIsDone] = useState(task.done);
-  const [isDeleting, setIsDeleting] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const largeDesc = useMemo(() => {
     return task.description.length > DESCR_DISPLAY_LENGTH;
