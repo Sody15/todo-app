@@ -174,7 +174,7 @@ const AddTaskForm: FC<{
       <div className='backdrop left-0 absolute h-full w-full bg-black bg-opacity-60 z-40' onClick={onClose}></div>
       <form
         className={clsx(
-          'absolute bg-white p-6 z-50 h-screen w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12 overflow-scroll',
+          'fixed bg-white p-6 z-50 h-screen w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12 overflow-scroll',
           ubuntu.className
         )}
         onSubmit={submitHandler}
