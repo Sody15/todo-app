@@ -256,7 +256,7 @@ const AddTaskForm: FC<{
           {
             // Tags
           }
-          <div className='flex flex-col flex-wrap gap-6 lg:flex-row'>
+          <div className='flex flex-col flex-wrap gap-6 mb-16 lg:flex-row lg:mb-0'>
             <TagList tags={task?.tags} onTagChange={(tags) => tagChange(tags)} />
           </div>
         </div>

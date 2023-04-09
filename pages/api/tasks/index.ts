@@ -1,17 +1,18 @@
-import clientPromise from '@/lib/mongodb';
+import MongoUtil from '@/lib/mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   try {
-    const client = await clientPromise;
+    const db = await MongoUtil.getDb();
+    const col = db.collection('tasks');
     let data;
 
     if (req.method === 'GET') {
-      data = await client.db('todo').collection('tasks').find({}).toArray();
+      data = await col.find({}).toArray();
 
       res.status(200).json(data);
     } else if (req.method === 'POST') {
-      data = await client.db('todo').collection('tasks').insertOne(req.body);
+      data = await col.insertOne(req.body);
 
       res.status(200).json(data);
     } else {

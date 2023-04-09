@@ -1,4 +1,6 @@
-import clientPromise from '@/lib/mongodb';
+// import clientPromise from '@/lib/mongodb';
+// import client from '@/lib/mongodb';
+import MongoUtil from '@/lib/mongodb';
 import { TaskModel } from '@/models/task';
 import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -10,25 +12,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const body = <TaskModel>req.body;
 
     if (requestMethod && taskId && typeof taskId === 'string') {
-      const client = await clientPromise;
       const _id = new ObjectId(taskId);
 
-      const collection = client.db('todo').collection('tasks');
+      const db = await MongoUtil.getDb();
+      const col = db.collection('tasks');
 
       switch (requestMethod) {
         case 'GET':
-          const task = await collection.findOne({ _id });
+          const task = await col.findOne({ _id });
           res.status(200).json(task);
           break;
 
         case 'PUT':
         case 'PATCH':
-          const updatedRes = await collection.updateOne({ _id }, { $set: body });
+          const updatedRes = await col.updateOne({ _id }, { $set: body });
           res.status(200).json(updatedRes);
           break;
 
         case 'DELETE':
-          const deleteRes = await collection.deleteOne({ _id });
+          const deleteRes = await col.deleteOne({ _id });
           res.status(200).json(deleteRes);
           break;
 
