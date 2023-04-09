@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useEffect, useReducer, useRef, useState } from 'react';
+import React, { FC, FormEvent, useEffect, useReducer, useRef, useState } from 'react';
 import { Ubuntu } from 'next/font/google';
 
 import clsx from 'clsx';
@@ -86,20 +86,6 @@ const AddTaskForm: FC<{
     });
   };
 
-  const titleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'TITLE',
-      payload: event.target.value,
-    });
-  };
-
-  const descriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch({
-      type: 'DESCRIPTION',
-      payload: event.target.value,
-    });
-  };
-
   const addMutation = useMutation({
     mutationFn: () => addTask(formData),
     onSuccess: ({ insertedId }: { insertedId: number }) => {
@@ -161,6 +147,16 @@ const AddTaskForm: FC<{
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    dispatch({
+      type: 'TITLE',
+      payload: titleRef!.current!.value,
+    });
+
+    dispatch({
+      type: 'DESCRIPTION',
+      payload: descriptionRef!.current!.value,
+    });
+
     setIsSubmitting(true);
 
     if (type === 'Add') {
@@ -172,19 +168,23 @@ const AddTaskForm: FC<{
 
   return (
     <>
-      <div className='backdrop left-0 absolute h-full w-full bg-black bg-opacity-60' onClick={onClose}></div>
+      {
+        // Backdrop
+      }
+      <div className='backdrop left-0 absolute h-full w-full bg-black bg-opacity-60 z-40' onClick={onClose}></div>
       <form
         className={clsx(
-          'absolute bg-white p-6 z-20 h-screen w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12 overflow-scroll',
+          'absolute bg-white p-6 z-50 h-screen w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12 overflow-scroll',
           ubuntu.className
         )}
         onSubmit={submitHandler}
       >
         <div className='flex justify-between mb-4 lg:mb-0'>
-          <button onClick={onClose} id='cancel-btn' className='rounded-lg py-1'>
+          <button onClick={onClose} id='cancel-btn' className='rounded-lg py-1' type='button'>
             Cancel
           </button>
           <button
+            type='submit'
             id='add-btn'
             className='bg-custom-dark-1 text-white rounded-lg px-16 py-3  disabled:opacity-40'
             disabled={isSubmitting}
@@ -229,7 +229,6 @@ const AddTaskForm: FC<{
               defaultValue={task?.title}
               placeholder='add a title ...'
               className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
-              onChange={titleChange}
               maxLength={TITLE_LENGTH}
             />
           </div>
@@ -250,7 +249,6 @@ const AddTaskForm: FC<{
               required
               defaultValue={task?.description}
               className='bg-zinc-100 rounded-lg resize-none px-4 py-2 w-full'
-              onChange={descriptionChange}
             ></textarea>
           </div>
           {
