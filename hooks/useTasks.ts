@@ -1,8 +1,8 @@
-import { TaskModel } from '@/models/task';
+import { Task } from '@/models/task';
 import { useEffect, useState } from 'react';
 
 export const useTasks = () => {
-  const [tasks, setTasks] = useState<TaskModel[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     const fetchTasks = async () => {

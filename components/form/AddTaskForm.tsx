@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Loader, TagList } from '@components';
-import { TaskModel } from '@/models';
+import { Task } from '@/models';
 import { addTask, updateTask } from '@/util/query-fn';
 
 const ubuntu = Ubuntu({
@@ -21,7 +21,7 @@ type ActionType =
     }
   | { type: 'TAGS'; payload: string[] };
 
-const reducer = (state: TaskModel, action: ActionType) => {
+const reducer = (state: Task, action: ActionType) => {
   switch (action.type) {
     case 'TITLE':
       return {
@@ -44,7 +44,7 @@ const reducer = (state: TaskModel, action: ActionType) => {
 };
 
 const AddTaskForm: FC<{
-  task?: TaskModel;
+  task?: Task;
   type?: 'Update' | 'Add';
   onClose: () => void;
 }> = ({ onClose, type = 'Add', task }) => {
@@ -102,7 +102,7 @@ const AddTaskForm: FC<{
   const addMutation = useMutation({
     mutationFn: () => addTask(formData),
     onSuccess: ({ insertedId }: { insertedId: number }) => {
-      client.setQueryData(['tasks'], (tasks: TaskModel[] | undefined) => {
+      client.setQueryData(['tasks'], (tasks: Task[] | undefined) => {
         if (tasks) {
           return [
             ...tasks,
@@ -130,7 +130,7 @@ const AddTaskForm: FC<{
   const updateMutation = useMutation({
     mutationFn: () => updateTask(task?._id!, formData),
     onSuccess: () => {
-      client.setQueryData(['tasks'], (tasks: TaskModel[] | undefined) => {
+      client.setQueryData(['tasks'], (tasks: Task[] | undefined) => {
         if (tasks) {
           return tasks.map((t) => {
             if (t._id === task!._id) {
@@ -209,9 +209,7 @@ const AddTaskForm: FC<{
           {isSubmitting && (
             <>
               <div className='absolute bg-gray-50 opacity-50 w-full h-full'></div>
-              <div className='absolute left-[50%] -translate-x-1/2 top-12'>
-                <Loader />
-              </div>
+              <Loader className='absolute left-[50%] -translate-x-1/2 top-12' />
             </>
           )}
           {

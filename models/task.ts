@@ -1,4 +1,4 @@
-export type TaskModel = {
+export type Task = {
   _id?: number;
   title: string;
   description: string;

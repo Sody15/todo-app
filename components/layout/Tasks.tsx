@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { Loader, TaskCard } from '@components';
-import { TaskModel } from '@models';
+import { Task } from '@models';
 import AppContext from '@/context/NavContext';
 import { fetchTasks } from '@/util/query-fn';
 
@@ -14,17 +14,13 @@ const Tasks = () => {
     data: tasks,
     isLoading,
     isError,
-  } = useQuery<TaskModel[]>({
+  } = useQuery<Task[]>({
     queryKey: ['tasks'],
     queryFn: fetchTasks,
   });
 
   if (isLoading) {
-    return (
-      <div className='absolute top-60 left-[50%] -translate-x-1/2 '>
-        <Loader />
-      </div>
-    );
+    return <Loader className='absolute top-60 left-[50%] -translate-x-1/2' />;
   }
 
   if (isError) {

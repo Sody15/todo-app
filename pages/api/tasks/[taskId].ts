@@ -1,7 +1,7 @@
 // import clientPromise from '@/lib/mongodb';
 // import client from '@/lib/mongodb';
 import MongoUtil from '@/lib/mongodb';
-import { TaskModel } from '@/models/task';
+import { Task } from '@/models/task';
 import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { taskId } = req.query;
     const requestMethod = req.method;
-    const body = <TaskModel>req.body;
+    const body = <Task>req.body;
 
     if (requestMethod && taskId && typeof taskId === 'string') {
       const _id = new ObjectId(taskId);

@@ -1,12 +1,12 @@
-import { TaskModel } from '@/models';
+import { Task } from '@/models';
 
-export const fetchTasks = (): Promise<TaskModel[]> => {
+export const fetchTasks = (): Promise<Task[]> => {
   return fetch('/api/tasks')
     .then((res) => res.json())
     .catch((err) => console.error(err));
 };
 
-export const updateTask = (_id: number, updatedTask: Partial<TaskModel>): Promise<any> => {
+export const updateTask = (_id: number, updatedTask: Partial<Task>): Promise<any> => {
   return fetch('/api/tasks/' + _id, {
     method: 'PATCH',
     body: JSON.stringify(updatedTask),
@@ -18,7 +18,7 @@ export const updateTask = (_id: number, updatedTask: Partial<TaskModel>): Promis
     .catch((err) => console.error(err));
 };
 
-export const addTask = (task: TaskModel): Promise<any> => {
+export const addTask = (task: Task): Promise<any> => {
   return fetch('/api/tasks', {
     method: 'POST',
     body: JSON.stringify(task),
