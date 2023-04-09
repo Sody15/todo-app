@@ -1,4 +1,4 @@
-import MongoUtil from '@/lib/mongodb';
+import MongoUtil from '@/lib/mongo-util';
 import { taskSchema } from '@/lib/schema';
 
 import { Task } from '@/models/task';

@@ -1,4 +1,4 @@
-import MongoUtil from '@/lib/mongodb';
+import MongoUtil from '@/lib/mongo-util';
 import { taskSchemaReq } from '@/lib/schema';
 import { Task } from '@/models';
 import type { NextApiRequest, NextApiResponse } from 'next';
