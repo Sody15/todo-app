@@ -1,14 +1,11 @@
 import { useState } from 'react';
 
 import Head from 'next/head';
-import { Ubuntu } from 'next/font/google';
 
 import { Header, Nav, Tasks } from '@components';
 import NavContext from '@/context/NavContext';
 
-const ubuntu = Ubuntu({ weight: ['300', '500', '700'], subsets: ['latin'] });
-
-const Home = () => {
+const LandingPage = () => {
   // Nav Context
   const [hideDone, setHideDone] = useState(false);
   const [tagFilters, setTagFilters] = useState<string[]>([]);
@@ -40,15 +37,13 @@ const Home = () => {
         />
       </Head>
 
-      <div className={ubuntu.className}>
-        <Header />
-        <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] '>
-          <Nav />
-          <Tasks />
-        </main>
-      </div>
+      <Header />
+      <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] '>
+        <Nav />
+        <Tasks />
+      </main>
     </NavContext.Provider>
   );
 };
 
-export default Home;
+export default LandingPage;

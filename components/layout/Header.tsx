@@ -1,17 +1,15 @@
-import Image from 'next/image';
 import React, { useState } from 'react';
 
-import logo from '../../public/images/logo.png';
-import { AddTaskForm, Portal } from '@components';
+import { TaskForm, Portal, Logo } from '@components';
 
 const Header = () => {
   const [isAddTask, setIsAddTask] = useState(false);
 
   return (
-    <header className='flex justify-between'>
-      <Image src={logo} alt='logo' width={100} priority={true} />
+    <header className='flex justify-between items-center py-3'>
+      <Logo />
       <button
-        className='text-6xl text-custom-dark-1'
+        className='text-6xl text-custom-dark-1 -translate-y-1'
         type='button'
         onClick={() => setIsAddTask((prevState) => !prevState)}
       >
@@ -19,7 +17,7 @@ const Header = () => {
       </button>
       {isAddTask && (
         <Portal>
-          <AddTaskForm onClose={() => setIsAddTask(false)} />
+          <TaskForm onClose={() => setIsAddTask(false)} />
         </Portal>
       )}
     </header>

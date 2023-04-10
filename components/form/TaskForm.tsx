@@ -44,7 +44,7 @@ const reducer = (state: Task, action: ActionType) => {
   }
 };
 
-const AddTaskForm: FC<{
+const TaskForm: FC<{
   task?: Task;
   type?: 'Update' | 'Add';
   onClose: () => void;
@@ -180,15 +180,10 @@ const AddTaskForm: FC<{
         onSubmit={submitHandler}
       >
         <div className='flex justify-between mb-4 lg:mb-0'>
-          <button onClick={onClose} id='cancel-btn' className='rounded-lg py-1' type='button'>
+          <button onClick={onClose} id='cancel-btn' className='secondary' type='button'>
             Cancel
           </button>
-          <button
-            type='submit'
-            id='add-btn'
-            className='bg-custom-dark-1 text-white rounded-lg px-16 py-3  disabled:opacity-40'
-            disabled={isSubmitting}
-          >
+          <button type='submit' id='add-btn' className='primary' disabled={isSubmitting}>
             {type}
           </button>
         </div>
@@ -263,4 +258,4 @@ const AddTaskForm: FC<{
   );
 };
 
-export default AddTaskForm;
+export default TaskForm;

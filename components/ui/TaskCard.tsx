@@ -2,7 +2,7 @@ import React, { FC, useMemo, useState } from 'react';
 import clsx from 'clsx';
 
 import { Task } from '@models';
-import { AddTaskForm, Checkbox, Loader, Menu, Portal, Tag } from '@components';
+import { TaskForm, Checkbox, Loader, Menu, Portal, Tag } from '@components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteTask, updateTask } from '@/util/query-fn';
 
@@ -129,7 +129,7 @@ const TaskCard: FC<{ task: Task }> = ({ task }) => {
       }
       {isUpdateTask && (
         <Portal>
-          <AddTaskForm task={task} type='Update' onClose={() => setIsUpdateTask(false)} />
+          <TaskForm task={task} type='Update' onClose={() => setIsUpdateTask(false)} />
         </Portal>
       )}
     </>

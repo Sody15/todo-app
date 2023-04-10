@@ -1,7 +1,7 @@
 .illustration-1 {
   width: 10rem;
   height: 10rem;
-  background-image: url('../public/images/illustrations.png');
+  background-image: url('../public/illustrations.png');
   background-position: 0.6rem 0.2rem;
   background-size: 21rem 21rem;
 }
@@ -9,7 +9,7 @@
 .illustration-2 {
   width: 10rem;
   height: 10rem;
-  background-image: url('../public/images/illustrations.png');
+  background-image: url('../public/illustrations.png');
   background-position: -11.5rem 0.2rem;
   background-size: 21rem 21rem;
 }
@@ -17,7 +17,7 @@
 .illustration-3 {
   width: 10rem;
   height: 10rem;
-  background-image: url('../public/images/illustrations.png');
+  background-image: url('../public/illustrations.png');
   background-position: 0.6rem 10rem;
   background-size: 21rem 21rem;
 }

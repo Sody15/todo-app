@@ -13,3 +13,17 @@ h3 {
 p {
   @apply text-sm font-light md:text-base;
 }
+
+button.primary {
+  @apply bg-custom-blue text-white rounded-lg px-16 py-3 disabled:opacity-40 transition-colors duration-200;
+  &:hover:not(:disabled) {
+    @apply bg-stone-500;
+  }
+}
+
+button.secondary {
+  @apply rounded-lg py-1 transition-colors duration-200;
+  &:hover:not(:disabled) {
+    @apply text-stone-800;
+  }
+}
