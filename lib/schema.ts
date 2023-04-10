@@ -15,3 +15,7 @@ export const taskSchemaReq = Joi.object({
   tags: Joi.array().items(Joi.string()).required(),
   done: Joi.boolean().required(),
 });
+
+export const userSchema = Joi.object({
+  userName: Joi.string().trim(),
+});

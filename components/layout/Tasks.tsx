@@ -49,7 +49,7 @@ const Tasks = () => {
     const randomIllustration = 'illustration-' + Math.floor(Math.random() * (3 - 1 + 1) + 1);
 
     return (
-      <div className='absolute top-60 left-[50%] -translate-x-1/2 flex flex-col items-center'>
+      <div className='absolute left-[50%] -translate-x-1/2 flex flex-col items-center md:mt-28'>
         <h3>{text}</h3>
         <div className={randomIllustration}></div>
       </div>

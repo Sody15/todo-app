@@ -7,7 +7,7 @@ const Nav = () => {
   const { toggleHideDone, updateFilters } = useContext(NavContext);
 
   return (
-    <div className='flex justify-between my-12 flex-wrap md:justify-start md:m-0 gap-y-3 md:flex-col md:gap-8  '>
+    <div className='grid grid-cols-2 gap-x-3  md:gap-x-0 md:flex my-12 md:justify-start md:m-0 gap-y-3 md:flex-col'>
       <TagList onTagChange={(tags) => updateFilters(tags)} />
       <div className='hidden md:block py-6'>
         <Checkbox name='hide-done' label='Hide Done Tasks' onChange={toggleHideDone} />
