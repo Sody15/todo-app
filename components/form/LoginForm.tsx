@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Logo } from '@components';
-import useInput from '@/hooks/useInput';
+import React, { FormEvent, useState } from 'react';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
+import { Logo } from '@components';
+import useInput from '@/hooks/useInput';
+import { PASSWORD_LENGTH, USERNAME_LENGTH } from '@/global';
 
 type FormType = 'Sign Up' | 'Login';
 
@@ -12,14 +14,14 @@ const LoginForm = () => {
     isValid: userNameIsValid,
     onChange: userNameChange,
     reset: resetUserName,
-  } = useInput((s) => s.length > 5);
+  } = useInput((s) => s.length >= USERNAME_LENGTH.min && s.length <= USERNAME_LENGTH.max);
 
   const {
     value: password,
     isValid: passwordIsValid,
     onChange: passwordChange,
     reset: resetPassword,
-  } = useInput((s) => s.length > 5);
+  } = useInput((s) => s.length >= PASSWORD_LENGTH.min && s.length <= PASSWORD_LENGTH.max);
 
   const [formType, setFormType] = useState<FormType>('Sign Up');
   const [showPassword, setShowPassword] = useState(false);
@@ -33,8 +35,19 @@ const LoginForm = () => {
     setShowPassword(false);
   };
 
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formType === 'Sign Up') {
+    } else {
+    }
+  };
+
   return (
-    <form className='bg-white p-6 md:shadow-lg w-full max-w-2xl md:rounded-xl md:p-12 overflow-scroll'>
+    <form
+      className='bg-white p-6 md:shadow-lg w-full max-w-2xl md:rounded-xl md:p-12 overflow-scroll'
+      onSubmit={submitHandler}
+    >
       {/* UserName <br />
       {userName}
       <br />
@@ -59,7 +72,8 @@ const LoginForm = () => {
           name='username'
           id='username'
           className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
-          maxLength={20}
+          minLength={USERNAME_LENGTH.min}
+          maxLength={USERNAME_LENGTH.max}
           value={userName}
           onChange={(e) => userNameChange(e.target.value)}
         />
@@ -74,7 +88,8 @@ const LoginForm = () => {
             name='password'
             id='password'
             className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
-            maxLength={20}
+            minLength={PASSWORD_LENGTH.min}
+            maxLength={PASSWORD_LENGTH.max}
             value={password}
             onChange={(e) => passwordChange(e.target.value)}
           />
