@@ -34,6 +34,10 @@ const Home = () => {
         <title>Todo</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta
+          name='description'
+          content='Simple todo app that helps you keep track of all those little important things in life.'
+        />
       </Head>
 
       <div className={ubuntu.className}>
