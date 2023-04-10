@@ -27,3 +27,7 @@ button.secondary {
     @apply text-stone-800;
   }
 }
+
+input:focus {
+  outline: none;
+}
