@@ -8,19 +8,23 @@ import { PASSWORD_LENGTH, USERNAME_LENGTH } from '@/global';
 
 type FormType = 'Sign Up' | 'Login';
 
-const LoginForm = () => {
+const AuthForm = () => {
   const {
     value: userName,
     isValid: userNameIsValid,
+    isTouched: userNameIsTouched,
     onChange: userNameChange,
-    reset: resetUserName,
+    onReset: resetUserName,
+    onBlur: blurUserName,
   } = useInput((s) => s.length >= USERNAME_LENGTH.min && s.length <= USERNAME_LENGTH.max);
 
   const {
     value: password,
     isValid: passwordIsValid,
+    isTouched: passwordIsTouched,
     onChange: passwordChange,
-    reset: resetPassword,
+    onReset: resetPassword,
+    onBlur: blurPassword,
   } = useInput((s) => s.length >= PASSWORD_LENGTH.min && s.length <= PASSWORD_LENGTH.max);
 
   const [formType, setFormType] = useState<FormType>('Sign Up');
@@ -43,6 +47,9 @@ const LoginForm = () => {
     }
   };
 
+  const showUserNameHint = userNameIsTouched && !userNameIsValid ? true : false;
+  const showPasswordHint = passwordIsTouched && !passwordIsValid ? true : false;
+
   return (
     <form
       className='bg-white p-6 md:shadow-lg w-full max-w-2xl md:rounded-xl md:p-12 overflow-scroll'
@@ -64,9 +71,12 @@ const LoginForm = () => {
         <Logo />
       </div>
       <div className='mb-6 w-full'>
-        <label htmlFor='username' className='block text-xl font-bold pb-3'>
-          Username
-        </label>
+        <div className='flex justify-between items-end pb-3'>
+          <label htmlFor='username' className='block text-xl font-bold'>
+            Username
+          </label>
+          {showUserNameHint && <span className='userName-hint text-sm'>Must be at least 8 characters long</span>}
+        </div>
         <input
           type='text'
           name='username'
@@ -76,12 +86,16 @@ const LoginForm = () => {
           maxLength={USERNAME_LENGTH.max}
           value={userName}
           onChange={(e) => userNameChange(e.target.value)}
+          onBlur={blurUserName}
         />
       </div>
       <div className='mb-6 w-full'>
-        <label htmlFor='password' className='block text-xl font-bold pb-3'>
-          Password
-        </label>
+        <div className='flex justify-between items-end pb-3'>
+          <label htmlFor='password' className='block text-xl font-bold'>
+            Password
+          </label>
+          {showPasswordHint && <span className='password-hint text-sm'>Must be at least 8 characters long</span>}
+        </div>
         <div className='relative'>
           <input
             type={showPassword ? 'text' : 'password'}
@@ -92,6 +106,7 @@ const LoginForm = () => {
             maxLength={PASSWORD_LENGTH.max}
             value={password}
             onChange={(e) => passwordChange(e.target.value)}
+            onBlur={blurPassword}
           />
           <button
             type='button'
@@ -117,4 +132,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default AuthForm;

@@ -1,6 +1,6 @@
 // Barrel file for component exports
 export { default as TaskForm } from './form/TaskForm';
-export { default as LoginForm } from './form/LoginForm';
+export { default as AuthForm } from './form/AuthForm';
 
 export { default as Header } from './layout/Header';
 export { default as Portal } from './layout/Portal';

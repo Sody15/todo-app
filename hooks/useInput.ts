@@ -12,7 +12,7 @@ const initialState: InputState = {
   isTouched: false,
 };
 
-type InputAction = { type: 'INPUT'; payload: string } | { type: 'RESET' };
+type InputAction = { type: 'INPUT'; payload: string } | { type: 'RESET' } | { type: 'BLUR' };
 
 const reducer = (state: InputState, action: InputAction) => {
   if (action.type === 'INPUT') {
@@ -20,6 +20,9 @@ const reducer = (state: InputState, action: InputAction) => {
   }
   if (action.type === 'RESET') {
     return initialState;
+  }
+  if (action.type === 'BLUR') {
+    return { ...state, isTouched: true };
   }
   return state;
 };
@@ -33,11 +36,17 @@ const useInput = (validateFn: (inputText: string) => boolean) => {
     dispatch({ type: 'INPUT', payload: val });
   };
 
-  const reset = () => {
+  const onBlur = () => {
+    if (inputState.value.trim() !== '') {
+      dispatch({ type: 'BLUR' });
+    }
+  };
+
+  const onReset = () => {
     dispatch({ type: 'RESET' });
   };
 
-  return { value: inputState.value, isValid, onChange, isTouched: inputState.isTouched, reset };
+  return { value: inputState.value, isValid, isTouched: inputState.isTouched, onBlur, onChange, onReset };
 };
 
 export default useInput;
