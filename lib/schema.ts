@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { DESC_LENGTH, PASSWORD_LENGTH, TITLE_LENGTH, USERNAME_LENGTH } from '@/global';
+import { DESC_LENGTH, TITLE_LENGTH, USERNAME_RULES, PASSWORD_RULES } from '@/global';
 
 export const taskSchema = Joi.object({
   title: Joi.string().trim().min(1).max(TITLE_LENGTH),
@@ -17,6 +17,6 @@ export const taskSchemaReq = Joi.object({
 });
 
 export const userSchema = Joi.object({
-  userName: Joi.string().trim().required().min(USERNAME_LENGTH.min).max(USERNAME_LENGTH.max),
-  password: Joi.string().trim().required().min(PASSWORD_LENGTH.min).max(PASSWORD_LENGTH.max),
+  userName: Joi.string().trim().required().min(USERNAME_RULES.min).max(USERNAME_RULES.max).regex(USERNAME_RULES.regex),
+  password: Joi.string().trim().required().min(PASSWORD_RULES.min).max(PASSWORD_RULES.max).regex(PASSWORD_RULES.regex),
 });

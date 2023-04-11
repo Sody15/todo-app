@@ -4,7 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import { Logo } from '@components';
 import useInput from '@/hooks/useInput';
-import { PASSWORD_LENGTH, USERNAME_LENGTH } from '@/global';
+import { PASSWORD_RULES, USERNAME_RULES } from '@/global';
 
 type FormType = 'Sign Up' | 'Login';
 
@@ -16,7 +16,7 @@ const AuthForm = () => {
     onChange: userNameChange,
     onReset: resetUserName,
     onBlur: blurUserName,
-  } = useInput((s) => s.length >= USERNAME_LENGTH.min && s.length <= USERNAME_LENGTH.max);
+  } = useInput((usNm) => USERNAME_RULES.regex.test(usNm));
 
   const {
     value: password,
@@ -25,7 +25,7 @@ const AuthForm = () => {
     onChange: passwordChange,
     onReset: resetPassword,
     onBlur: blurPassword,
-  } = useInput((s) => s.length >= PASSWORD_LENGTH.min && s.length <= PASSWORD_LENGTH.max);
+  } = useInput((pw) => PASSWORD_RULES.regex.test(pw));
 
   const [formType, setFormType] = useState<FormType>('Sign Up');
   const [showPassword, setShowPassword] = useState(false);
@@ -66,56 +66,51 @@ const AuthForm = () => {
       {password}
       <br />
       {JSON.stringify(passwordIsValid)} */}
-
       <div className='flex justify-center mb-6'>
         <Logo />
       </div>
       <div className='mb-6 w-full'>
-        <div className='flex justify-between items-end pb-3'>
-          <label htmlFor='username' className='block text-xl font-bold'>
-            Username
-          </label>
-          {showUserNameHint && <span className='userName-hint text-sm'>Must be at least 8 characters long</span>}
-        </div>
+        <label htmlFor='username' className='block text-xl font-bold pb-3'>
+          Username
+        </label>
         <input
           type='text'
           name='username'
           id='username'
           className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
-          minLength={USERNAME_LENGTH.min}
-          maxLength={USERNAME_LENGTH.max}
+          minLength={USERNAME_RULES.min}
+          maxLength={USERNAME_RULES.max}
           value={userName}
           onChange={(e) => userNameChange(e.target.value)}
           onBlur={blurUserName}
         />
+        {showUserNameHint && <span className='userName-hint text-sm text-[#ff7f7f]'>{USERNAME_RULES.message}</span>}
       </div>
       <div className='mb-6 w-full'>
-        <div className='flex justify-between items-end pb-3'>
-          <label htmlFor='password' className='block text-xl font-bold'>
-            Password
-          </label>
-          {showPasswordHint && <span className='password-hint text-sm'>Must be at least 8 characters long</span>}
-        </div>
+        <label htmlFor='password' className='block text-xl font-bold pb-3'>
+          Password
+        </label>
         <div className='relative'>
           <input
             type={showPassword ? 'text' : 'password'}
             name='password'
             id='password'
             className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
-            minLength={PASSWORD_LENGTH.min}
-            maxLength={PASSWORD_LENGTH.max}
+            minLength={PASSWORD_RULES.min}
+            maxLength={PASSWORD_RULES.max}
             value={password}
             onChange={(e) => passwordChange(e.target.value)}
             onBlur={blurPassword}
           />
           <button
             type='button'
-            className='absolute cursor-pointer right-0 bg-custom-blue h-full px-5 rounded-r-lg text-white'
+            className='absolute cursor-pointer right-0 bg-custom-blue h-full px-5 rounded-r-lg text-white hover:bg-stone-500 transition-colors duration-300'
             onClick={() => setShowPassword((prevVal) => !prevVal)}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
+        {showPasswordHint && <span className='password-hint text-sm text-[#ff7f7f]'>{PASSWORD_RULES.message}</span>}
       </div>
       <div className='mt-20 mb-3 flex justify-center'>
         <button className='primary' disabled={!isFormValid}>
