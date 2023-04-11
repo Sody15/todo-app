@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { Task } from '@models';
 import { TaskForm, Checkbox, Loader, Menu, Portal, Tag } from '@components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteTask, updateTask } from '@/util/query-fn';
+import { deleteTask, updateTask } from '@/services/task-service';
 
 const DESCR_DISPLAY_LENGTH = 300;
 

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, createContext } from 'react';
+import { createContext } from 'react';
 
 type Context = {
   hideDone: boolean;

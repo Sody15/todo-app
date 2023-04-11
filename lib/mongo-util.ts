@@ -1,11 +1,5 @@
 import { Db, MongoClient } from 'mongodb';
 
-// Check if the MONGODB_URI environment variable is set.
-if (!process.env.MONGODB_URI) {
-  console.log('Check if the MONGODB_URI environment variable is set');
-  throw new Error('Invalid environment variable: "MONGODB_URI"');
-}
-
 class MongoUtil {
   // Define static properties for the client and database instances.
   private static client: MongoClient;

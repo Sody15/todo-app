@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Loader, TagList } from '@components';
 import { Task } from '@/models';
-import { addTask, updateTask } from '@/util/query-fn';
+import { addTask, updateTask } from '@/services/task-service';
 import { DESC_LENGTH, TITLE_LENGTH } from '@/global';
 
 const ubuntu = Ubuntu({

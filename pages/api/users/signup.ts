@@ -29,15 +29,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       data = await col.insertOne(userReq);
 
-      res.status(200).json(data);
+      res.status(200).json({ ...data, userName: userReq.userName });
     } else {
       throw new Error('Method not allowed');
     }
   } catch (err) {
     if (err instanceof Error) {
-      res.status(400).json({ errors: err.message });
+      res.status(400).json(err.message);
     } else {
-      res.status(400).json({ errors: 'Unknown error occurred' });
+      res.status(400).json('Unknown error occurred');
     }
   }
 }

@@ -1,3 +1,6 @@
+export const LOCALSTORAGE_USERNAME = 'TODO_APP_USERNAME';
+export const LOCALSTORAGE_USERID = 'TODO_APP_USERID';
+
 export const TAGS = ['work', 'study', 'entertainment', 'family'];
 
 export const USERNAME_RULES = {

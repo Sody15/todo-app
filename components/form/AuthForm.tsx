@@ -1,14 +1,18 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import { Logo } from '@components';
 import useInput from '@/hooks/useInput';
-import { PASSWORD_RULES, USERNAME_RULES } from '@/global';
+import { LOCALSTORAGE_USERID, LOCALSTORAGE_USERNAME, PASSWORD_RULES, USERNAME_RULES } from '@/global';
+import { login, signUp } from '@/services/user-service';
 
 type FormType = 'Sign Up' | 'Login';
 
 const AuthForm = () => {
+  const router = useRouter();
+
   const {
     value: userName,
     isValid: userNameIsValid,
@@ -16,7 +20,7 @@ const AuthForm = () => {
     onChange: userNameChange,
     onReset: resetUserName,
     onBlur: blurUserName,
-  } = useInput((usNm) => USERNAME_RULES.regex.test(usNm));
+  } = useInput((userName) => USERNAME_RULES.regex.test(userName));
 
   const {
     value: password,
@@ -29,8 +33,20 @@ const AuthForm = () => {
 
   const [formType, setFormType] = useState<FormType>('Sign Up');
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  const isFormValid = userNameIsValid && passwordIsValid;
+  const isFormValid = useMemo(() => userNameIsValid && passwordIsValid, [userNameIsValid, passwordIsValid]);
+
+  const showUserNameHint = useMemo(
+    () => (userNameIsTouched && !userNameIsValid ? true : false),
+    [userNameIsTouched, userNameIsValid]
+  );
+
+  const showPasswordHint = useMemo(
+    () => (passwordIsTouched && !passwordIsValid ? true : false),
+    [passwordIsTouched, passwordIsValid]
+  );
 
   const changeFormType = () => {
     setFormType((prevType) => (prevType === 'Login' ? 'Sign Up' : 'Login'));
@@ -39,36 +55,58 @@ const AuthForm = () => {
     setShowPassword(false);
   };
 
+  const onSignUp = () =>
+    signUp({ userName, password })
+      .then(({ insertedId, userName }) => {
+        setUserDetails(insertedId, userName);
+        router.push('/');
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+        setIsSubmitting(false);
+      });
+
+  const onLogin = () =>
+    login({ userName, password })
+      .then(({ _id, userName }) => {
+        setUserDetails(_id, userName);
+        router.push('/');
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+        setIsSubmitting(false);
+      });
+
+  const setUserDetails = (id: string, userName: string) => {
+    // Set localstorage
+    localStorage.setItem(LOCALSTORAGE_USERID, id);
+    localStorage.setItem(LOCALSTORAGE_USERNAME, userName);
+  };
+
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsSubmitting(true);
+
     if (formType === 'Sign Up') {
+      onSignUp();
     } else {
+      onLogin();
     }
   };
 
-  const showUserNameHint = userNameIsTouched && !userNameIsValid ? true : false;
-  const showPasswordHint = passwordIsTouched && !passwordIsValid ? true : false;
-
   return (
     <form
-      className='bg-white p-6 md:shadow-lg w-full max-w-2xl md:rounded-xl md:p-12 overflow-scroll'
+      className='bg-white p-6 md:shadow-2xl w-full max-w-2xl md:rounded-xl md:p-12 overflow-scroll'
       onSubmit={submitHandler}
     >
-      {/* UserName <br />
-      {userName}
-      <br />
-      {JSON.stringify(userNameIsValid)}
-      <br />
-      <br />
-      Password
-      <br />
-      {password}
-      <br />
-      {JSON.stringify(passwordIsValid)} */}
       <div className='flex justify-center mb-6'>
         <Logo />
       </div>
+      {
+        // Error from server
+      }
+      {error && <div>{error}</div>}
       <div className='mb-6 w-full'>
         <label htmlFor='username' className='block text-xl font-bold pb-3'>
           Username
@@ -113,7 +151,7 @@ const AuthForm = () => {
         {showPasswordHint && <span className='password-hint text-sm text-[#ff7f7f]'>{PASSWORD_RULES.message}</span>}
       </div>
       <div className='mt-20 mb-3 flex justify-center'>
-        <button className='primary' disabled={!isFormValid}>
+        <button className='primary' disabled={!isFormValid || isSubmitting}>
           {formType}
         </button>
       </div>

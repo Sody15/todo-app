@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Loader, TaskCard } from '@components';
 import { Task } from '@models';
 import AppContext from '@/context/NavContext';
-import { fetchTasks } from '@/util/query-fn';
+import { fetchTasks } from '@/services/task-service';
 
 const Tasks = () => {
   const { hideDone, tagFilters } = useContext(AppContext);

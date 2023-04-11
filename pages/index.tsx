@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 
 import Head from 'next/head';
 
 import { Header, Nav, Tasks } from '@components';
 import NavContext from '@/context/NavContext';
+import UserContext from '@/context/UserContext';
 
 const LandingPage = () => {
+  const userContext = useContext(UserContext);
+  console.log(userContext);
   // Nav Context
   const [hideDone, setHideDone] = useState(false);
   const [tagFilters, setTagFilters] = useState<string[]>([]);
