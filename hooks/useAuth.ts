@@ -19,7 +19,7 @@ const useAuth = () => {
     } else {
       setUser({ userName, _id: userId });
     }
-  }, []);
+  }, [router]);
 
   console.log(user);
   return user;

@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         throw Error('Username already exists');
       }
 
-      data = await col.insertOne(userReq);
+      data = await col.insertOne({ userReq });
 
       res.status(200).json({ ...data, userName: userReq.userName });
     } else {

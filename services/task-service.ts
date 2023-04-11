@@ -3,6 +3,7 @@ import { Task } from '@/models';
 import { headers } from './util';
 
 export const fetchTasks = (): Promise<Task[]> => {
+  console.log('fetchTasks');
   return fetch('/api/tasks').then((res) => res.json());
 };
 
