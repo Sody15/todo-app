@@ -5,26 +5,14 @@ import { signOut } from 'next-auth/react';
 
 import { IoMdSettings } from 'react-icons/io';
 import { GoPlus } from 'react-icons/go';
+import useClickOutside from '@/hooks/useClickOutside';
 
 const Header = () => {
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAddTask, setIsAddTask] = useState(false);
 
   const settingsRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
-        setIsSettingsOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  const { isOpen: isSettingsOpen, setIsOpen: setIsSettingsOpen } = useClickOutside(false, settingsRef);
 
   return (
     <header className='flex justify-between items-center py-3'>
