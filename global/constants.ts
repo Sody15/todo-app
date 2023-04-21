@@ -11,7 +11,7 @@ export const USERNAME_RULES = {
 export const PASSWORD_RULES = {
   min: 8,
   max: 40,
-  regex: new RegExp(/^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$/),
+  regex: new RegExp(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+={[}\];:'",<.>/?\\|~-]{8,}$/),
   message: 'Your password must be at least 8 characters long and include at least 1 uppercase letter and 1 number.',
 };
 
