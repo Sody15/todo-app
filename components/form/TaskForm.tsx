@@ -9,11 +9,7 @@ import { Task } from '@/models';
 import { addTask, updateTask } from '@/services/task-service';
 import { DESC_LENGTH, TITLE_LENGTH } from '@/global';
 import { ObjectId } from 'mongodb';
-
-const ubuntu = Ubuntu({
-  weight: ['300', '400', '700'],
-  subsets: ['latin'],
-});
+import { ubuntu } from '@/pages/_app';
 
 type ActionType =
   | { type: 'TITLE'; payload: string }
