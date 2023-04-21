@@ -1,12 +1,18 @@
-import { comparePassword } from '@/lib/auth';
-import MongoUtil from '@/lib/mongo-util';
-import { User as UserModel } from '@/models';
-import NextAuth, { AuthOptions, Session, User } from 'next-auth';
+import NextAuth, { AuthOptions, DefaultSession, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-interface ExtendedUserType extends User {
-  id: string;
+import { comparePassword } from '@/lib/auth';
+import MongoUtil from '@/lib/mongo-util';
+import { User as UserModel } from '@/models';
+
+interface ExtendedSessionType extends DefaultSession {
+  user: {
+    id: string | null;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
 }
 
 interface ExtendedJWTType extends JWT {
@@ -22,11 +28,6 @@ export const authOptions: AuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    // Set session id from token
-    async session({ session, token }) {
-      (session.user as ExtendedUserType).id = (token as ExtendedJWTType).user.id;
-      return session;
-    },
     // Set token
     async jwt({ token, user }) {
       if (user) {
@@ -34,9 +35,15 @@ export const authOptions: AuthOptions = {
       }
       return token;
     },
+    // Set session id from token
+    async session({ session, token }) {
+      (session as ExtendedSessionType).user!.id = (token as ExtendedJWTType).user.id;
+      return session;
+    },
   },
   providers: [
     CredentialsProvider({
+      // @ts-ignore
       async authorize(credentials) {
         try {
           if (credentials) {
@@ -59,7 +66,6 @@ export const authOptions: AuthOptions = {
               throw Error('Could not log you in!');
             }
 
-            console.log(user._id);
             return { id: user._id?.toString(), name: user.userName };
           }
         } catch (err) {
@@ -67,13 +73,12 @@ export const authOptions: AuthOptions = {
         }
       },
     }),
-    // ...add more providers here
   ],
 };
 
 // Get userId from session
-export const getUserId = (session: Session) => {
-  const { id: userId } = session.user as ExtendedUserType;
+export const getUserId = (session: Session): string | null => {
+  const { id: userId } = (session as ExtendedSessionType).user;
   return userId;
 };
 

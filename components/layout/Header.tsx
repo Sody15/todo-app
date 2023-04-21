@@ -9,14 +9,16 @@ const Header = () => {
   return (
     <header className='flex justify-between items-center py-3'>
       <Logo />
-      <button
-        className='text-6xl text-custom-dark-1 -translate-y-1'
-        type='button'
-        onClick={() => setIsAddTask((prevState) => !prevState)}
-      >
-        +
-      </button>
-      <button onClick={() => signOut()}>Logout</button>
+      <div className='flex justify-center gap-4'>
+        <button
+          className='text-6xl text-custom-dark-1 -translate-y-1'
+          type='button'
+          onClick={() => setIsAddTask((prevState) => !prevState)}
+        >
+          +
+        </button>
+        <button onClick={() => signOut()}>Logout</button>
+      </div>
       {isAddTask && (
         <Portal>
           <TaskForm onClose={() => setIsAddTask(false)} />

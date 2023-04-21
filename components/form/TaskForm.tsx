@@ -8,6 +8,7 @@ import { Loader, TagList } from '@components';
 import { Task } from '@/models';
 import { addTask, updateTask } from '@/services/task-service';
 import { DESC_LENGTH, TITLE_LENGTH } from '@/global';
+import { ObjectId } from 'mongodb';
 
 const ubuntu = Ubuntu({
   weight: ['300', '500', '700'],
@@ -88,7 +89,7 @@ const TaskForm: FC<{
 
   const addMutation = useMutation({
     mutationFn: () => addTask(formData),
-    onSuccess: ({ insertedId }: { insertedId: number }) => {
+    onSuccess: ({ insertedId }: { insertedId: ObjectId }) => {
       client.setQueryData(['tasks'], (tasks: Task[] | undefined) => {
         if (tasks) {
           return [

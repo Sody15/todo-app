@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   if (session.user) {
-    const userId = new ObjectId(getUserId(session));
+    const userId = new ObjectId(getUserId(session)!);
 
     try {
       const db = await MongoUtil.getDb();

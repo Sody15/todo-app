@@ -5,6 +5,7 @@ import { Task } from '@models';
 import { TaskForm, Checkbox, Loader, Menu, Portal, Tag } from '@components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteTask, updateTask } from '@/services/task-service';
+import { ObjectId } from 'mongodb';
 
 const DESCR_DISPLAY_LENGTH = 300;
 
@@ -21,7 +22,7 @@ const TaskCard: FC<{ task: Task }> = ({ task }) => {
   }, [task.description]);
 
   const deleteMutation = useMutation({
-    mutationFn: (_id: number) => deleteTask(_id),
+    mutationFn: (_id: ObjectId) => deleteTask(_id),
     onSuccess: () =>
       client.setQueryData(['tasks'], (tasks: Task[] | undefined) => {
         if (tasks) {
@@ -34,7 +35,7 @@ const TaskCard: FC<{ task: Task }> = ({ task }) => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (_id: number) => updateTask(_id, { done: isDone }),
+    mutationFn: (_id: ObjectId) => updateTask(_id, { done: isDone }),
     onSuccess: () =>
       client.setQueryData(['tasks'], (prev: Task[] | undefined) => {
         if (prev) {

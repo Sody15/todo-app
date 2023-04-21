@@ -1,6 +1,7 @@
 import { Task } from '@/models';
 
 import { headers } from './util';
+import { ObjectId } from 'mongodb';
 
 export const fetchTasks = (): Promise<Task[]> => {
   return fetch('/api/tasks').then((res) => {
@@ -11,7 +12,7 @@ export const fetchTasks = (): Promise<Task[]> => {
   });
 };
 
-export const updateTask = (_id: number, updatedTask: Partial<Task>): Promise<any> => {
+export const updateTask = (_id: ObjectId, updatedTask: Partial<Task>): Promise<any> => {
   return fetch('/api/tasks/' + _id, {
     method: 'PATCH',
     body: JSON.stringify(updatedTask),
@@ -37,7 +38,7 @@ export const addTask = (task: Task): Promise<any> => {
   });
 };
 
-export const deleteTask = (_id: number) => {
+export const deleteTask = (_id: ObjectId) => {
   return fetch('/api/tasks/' + _id, {
     method: 'DELETE',
   });
