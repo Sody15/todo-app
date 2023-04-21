@@ -4,11 +4,31 @@ import Head from 'next/head';
 
 import { Header, Nav, Tasks } from '@components';
 import NavContext from '@/context/NavContext';
-import UserContext from '@/context/UserContext';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
+
+  console.log(session);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};
 
 const LandingPage = () => {
-  const userContext = useContext(UserContext);
-  console.log(userContext);
   // Nav Context
   const [hideDone, setHideDone] = useState(false);
   const [tagFilters, setTagFilters] = useState<string[]>([]);

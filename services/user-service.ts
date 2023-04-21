@@ -2,22 +2,19 @@ import { User } from '@/models';
 import { headers } from './util';
 
 export const signUp = (user: User): Promise<any> => {
-  return fetch('/api/users/signup', {
+  return fetch('/api/auth/signup', {
     method: 'POST',
     body: JSON.stringify(user),
     headers,
   }).then(async (res) => {
-    if (res.ok) {
-      return await res.json();
+    const response = await res.json();
+    if (!res.ok) {
+      console.log(response.message);
+      throw Error(response.message);
+      return;
     }
-    throw Error(await res.json());
-  });
-};
+    return response;
 
-export const login = (user: User): Promise<any> => {
-  return fetch('/api/users/login', {
-    method: 'POST',
-    body: JSON.stringify(user),
-    headers,
-  }).then((res) => res.json());
+    // return await res.json();
+  });
 };

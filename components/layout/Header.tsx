@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { TaskForm, Portal, Logo } from '@components';
+import { signOut } from 'next-auth/react';
 
 const Header = () => {
   const [isAddTask, setIsAddTask] = useState(false);
@@ -15,6 +16,7 @@ const Header = () => {
       >
         +
       </button>
+      <button onClick={() => signOut()}>Logout</button>
       {isAddTask && (
         <Portal>
           <TaskForm onClose={() => setIsAddTask(false)} />

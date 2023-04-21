@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import MongoUtil from '@/lib/mongo-util';
 import { userSchema } from '@/lib/schema';
 import { User } from '@/models';
+import { hashPassword } from '@/lib/auth';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   try {
@@ -19,24 +20,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         throw Error(JSON.stringify(errors));
       }
 
-      const user = await col.findOne(
-        { userName: userReq.userName, password: userReq.password },
-        { projection: { userName: 1 } }
-      );
+      // See if user already exists
+      const user = await col.findOne({ userName: userReq.userName });
 
-      if (!user) {
-        throw Error('Login failed');
+      if (user) {
+        res.status(400).json({ message: 'Username already exists' });
+        return;
       }
 
-      res.status(200).json(user);
+      // Hash password
+      const hashedPw = await hashPassword(userReq.password!);
+
+      const response = await col.insertOne({ ...userReq, password: hashedPw });
+
+      res.status(201).json(response);
     } else {
-      throw new Error('Method not allowed');
+      res.status(405).json({ message: 'Method not allowed' });
     }
   } catch (err) {
     if (err instanceof Error) {
-      res.status(400).json({ errors: err.message });
-    } else {
-      res.status(400).json({ errors: 'Unknown error occurred' });
+      res.status(400).json({ message: err.message });
     }
   }
 }

@@ -3,8 +3,12 @@ import { Task } from '@/models';
 import { headers } from './util';
 
 export const fetchTasks = (): Promise<Task[]> => {
-  console.log('fetchTasks');
-  return fetch('/api/tasks').then((res) => res.json());
+  return fetch('/api/tasks').then((res) => {
+    if (!res.ok) {
+      throw Error('Error loading tasks');
+    }
+    return res.json();
+  });
 };
 
 export const updateTask = (_id: number, updatedTask: Partial<Task>): Promise<any> => {
@@ -12,7 +16,12 @@ export const updateTask = (_id: number, updatedTask: Partial<Task>): Promise<any
     method: 'PATCH',
     body: JSON.stringify(updatedTask),
     headers,
-  }).then((res) => res.json());
+  }).then((res) => {
+    if (!res.ok) {
+      throw Error('Error updating task');
+    }
+    return res.json();
+  });
 };
 
 export const addTask = (task: Task): Promise<any> => {
@@ -20,7 +29,12 @@ export const addTask = (task: Task): Promise<any> => {
     method: 'POST',
     body: JSON.stringify(task),
     headers,
-  }).then((res) => res.json());
+  }).then((res) => {
+    if (!res.ok) {
+      throw Error('Error adding task');
+    }
+    return res.json();
+  });
 };
 
 export const deleteTask = (_id: number) => {

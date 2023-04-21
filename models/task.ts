@@ -1,5 +1,7 @@
+import { ObjectId } from 'mongodb';
+
 export type Task = {
-  _id?: number;
+  _id?: ObjectId;
   title: string;
   description: string;
   tags: string[];

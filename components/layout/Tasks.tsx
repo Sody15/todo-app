@@ -10,8 +10,6 @@ import { fetchTasks } from '@/services/task-service';
 const Tasks = () => {
   const { hideDone, tagFilters } = useContext(NavContext);
 
-  console.log('tasksComponent');
-
   const {
     data: tasks,
     isLoading,

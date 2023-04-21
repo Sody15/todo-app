@@ -1,12 +1,15 @@
 import React, { FormEvent, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
+
+import { signIn } from 'next-auth/react';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import { Logo } from '@components';
 import useInput from '@/hooks/useInput';
-import { LOCALSTORAGE_USERID, LOCALSTORAGE_USERNAME, PASSWORD_RULES, USERNAME_RULES } from '@/global';
-import { login, signUp } from '@/services/user-service';
+import { PASSWORD_RULES, USERNAME_RULES } from '@/global';
+import { signUp } from '@/services/user-service';
+import clsx from 'clsx';
 
 type FormType = 'Sign Up' | 'Login';
 
@@ -50,37 +53,36 @@ const AuthForm = () => {
 
   const changeFormType = () => {
     setFormType((prevType) => (prevType === 'Login' ? 'Sign Up' : 'Login'));
+    resetForm();
+  };
+
+  const resetForm = () => {
     resetUserName();
     resetPassword();
     setShowPassword(false);
+    setError('');
   };
 
   const onSignUp = () =>
     signUp({ userName, password })
-      .then(({ insertedId, userName }) => {
-        setUserDetails(insertedId, userName);
-        router.push('/');
+      .then(() => {
+        onLogin();
       })
       .catch((err: Error) => {
         setError(err.message);
         setIsSubmitting(false);
       });
 
-  const onLogin = () =>
-    login({ userName, password })
-      .then(({ _id, userName }) => {
-        setUserDetails(_id, userName);
-        router.push('/');
-      })
-      .catch((err: Error) => {
-        setError(err.message);
-        setIsSubmitting(false);
-      });
+  const onLogin = async () => {
+    const result = await signIn('credentials', { redirect: false, userName, password });
 
-  const setUserDetails = (id: string, userName: string) => {
-    // Set localstorage
-    localStorage.setItem(LOCALSTORAGE_USERID, id);
-    localStorage.setItem(LOCALSTORAGE_USERNAME, userName);
+    // If login successful, navigate to dashboard
+    if (!result?.error) {
+      router.push('/');
+    } else {
+      setError('Login failed');
+      setIsSubmitting(false);
+    }
   };
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -103,10 +105,7 @@ const AuthForm = () => {
       <div className='flex justify-center mb-6'>
         <Logo />
       </div>
-      {
-        // Error from server
-      }
-      {error && <div>{error}</div>}
+
       <div className='mb-6 w-full'>
         <label htmlFor='username' className='block text-xl font-bold pb-3'>
           Username
@@ -115,7 +114,7 @@ const AuthForm = () => {
           type='text'
           name='username'
           id='username'
-          className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
+          className='bg-zinc-100 rounded-lg px-4 py-3 w-full'
           minLength={USERNAME_RULES.min}
           maxLength={USERNAME_RULES.max}
           value={userName}
@@ -133,7 +132,7 @@ const AuthForm = () => {
             type={showPassword ? 'text' : 'password'}
             name='password'
             id='password'
-            className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
+            className='bg-zinc-100 rounded-lg px-4 py-3 w-full'
             minLength={PASSWORD_RULES.min}
             maxLength={PASSWORD_RULES.max}
             value={password}
@@ -150,7 +149,11 @@ const AuthForm = () => {
         </div>
         {showPasswordHint && <span className='password-hint text-sm text-[#ff7f7f]'>{PASSWORD_RULES.message}</span>}
       </div>
-      <div className='mt-20 mb-3 flex justify-center'>
+      <div className='mb-3 flex justify-center flex-col items-center'>
+        {
+          // Error from server
+        }
+        <div className={clsx('py-6', { invisible: !error, visible: error })}>{error}</div>
         <button className='primary' disabled={!isFormValid || isSubmitting}>
           {formType}
         </button>
