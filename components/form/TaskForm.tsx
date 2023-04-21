@@ -224,7 +224,7 @@ const TaskForm: FC<{
               required
               defaultValue={task?.title}
               placeholder='add a title ...'
-              className='bg-zinc-100 rounded-lg px-4 py-2 w-full'
+              className='bg-zinc-100 rounded-lg px-4 py-3 w-full'
               maxLength={TITLE_LENGTH}
             />
           </div>
