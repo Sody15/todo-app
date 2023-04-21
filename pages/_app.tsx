@@ -22,13 +22,13 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   });
 
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
-        <main className={ubuntu.className}>
-          <Component {...pageProps} />
-        </main>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </SessionProvider>
+    // <SessionProvider session={session}>
+    <QueryClientProvider client={queryClient}>
+      <main className={ubuntu.className}>
+        <Component {...pageProps} />
+      </main>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
+    // </SessionProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useState } from 'react';
 
 import Head from 'next/head';
 
@@ -7,6 +7,7 @@ import NavContext from '@/context/NavContext';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 
+// Redirect to /auth page if no session exists
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
 
@@ -20,9 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: {
-      session,
-    },
+    props: {},
   };
 };
 
@@ -51,7 +50,7 @@ const LandingPage = () => {
       <Head>
         <title>Todo</title>
         <meta charSet='utf-8' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width, maximum-scale=1' />
         <meta
           name='description'
           content='Simple todo app that helps you keep track of all those little important things in life.'

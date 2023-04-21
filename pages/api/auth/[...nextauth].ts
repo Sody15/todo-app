@@ -25,7 +25,7 @@ export const authOptions: AuthOptions = {
   secret: <string>process.env.JWT_SECRET,
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 60 * 30, // 30 minutes
   },
   callbacks: {
     // Set token

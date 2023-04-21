@@ -29,6 +29,7 @@ const Tag: FC<{
       className={clsx('flex items-center rounded-xl gap-2 text-custom-dark-1 font-normal', {
         'bg-gray-100': isSelected,
         'py-2 px-3': showText,
+        'cursor-default': !showText,
       })}
       type='button'
       name='tag'

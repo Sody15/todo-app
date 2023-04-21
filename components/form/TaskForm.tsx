@@ -68,6 +68,7 @@ const TaskForm: FC<{
     hasError: boolean;
     errorText: string;
   };
+
   const [error, setError] = useState<ErrorState>({
     hasError: false,
     errorText: 'No error',
@@ -134,7 +135,6 @@ const TaskForm: FC<{
       onClose();
     },
     onError: (err) => {
-      console.log(err);
       setError({
         hasError: true,
         errorText: 'There was an error updating your task',
@@ -193,7 +193,7 @@ const TaskForm: FC<{
             // Error
           }
           <div
-            className={clsx('text-red-300 py-6', {
+            className={clsx('text-red-300 pt-3 pb-6', {
               invisible: !error.hasError,
               visible: error.hasError,
             })}
