@@ -3,7 +3,7 @@ export const TAGS = ['work', 'study', 'entertainment', 'family'];
 export const USERNAME_RULES = {
   min: 8,
   max: 20,
-  regex: new RegExp('^[A-Za-z][A-Za-z0-9_]{7,19}$'),
+  regex: new RegExp(/^[a-zA-Z0-9_]{8,}$/),
   message:
     'Your username must be at least 8 characters long and can only contain alphanumeric characters as well as underscores.',
 };
@@ -11,7 +11,7 @@ export const USERNAME_RULES = {
 export const PASSWORD_RULES = {
   min: 8,
   max: 40,
-  regex: new RegExp('^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'),
+  regex: new RegExp(/^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$/),
   message: 'Your password must be at least 8 characters long and include at least 1 uppercase letter and 1 number.',
 };
 
