@@ -11,7 +11,7 @@ import { DESC_LENGTH, TITLE_LENGTH } from '@/global';
 import { ObjectId } from 'mongodb';
 
 const ubuntu = Ubuntu({
-  weight: ['300', '500', '700'],
+  weight: ['300', '400', '700'],
   subsets: ['latin'],
 });
 
