@@ -1,5 +1,25 @@
 import { AuthForm } from '@/components';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
+
+// Redirect to landing page if session exists
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const AuthPage = () => {
   return (
