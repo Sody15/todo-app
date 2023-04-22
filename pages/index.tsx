@@ -26,6 +26,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const LandingPage = () => {
+  // Header Context
+  const [numTasks, setNumTasks] = useState(0);
+
   // Nav Context
   const [hideDone, setHideDone] = useState(false);
   const [tagFilters, setTagFilters] = useState<string[]>([]);
@@ -57,10 +60,10 @@ const LandingPage = () => {
         />
       </Head>
 
-      <Header />
+      <Header numTasks={numTasks} />
       <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] '>
         <Nav />
-        <Tasks />
+        <Tasks onTaskLoad={(numTasks) => setNumTasks(numTasks)} />
       </main>
     </NavContext.Provider>
   );

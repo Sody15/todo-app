@@ -1,5 +1,7 @@
 export const TAGS = ['work', 'study', 'entertainment', 'family'];
 
+export const MAX_TASKS = 30;
+
 export const USERNAME_RULES = {
   min: 8,
   max: 20,

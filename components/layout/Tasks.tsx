@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -7,7 +7,7 @@ import { Task } from '@models';
 import NavContext from '@/context/NavContext';
 import { fetchTasks } from '@/services/task-service';
 
-const Tasks = () => {
+const Tasks = ({ onTaskLoad }: { onTaskLoad: (numTasks: number) => void }) => {
   const { hideDone, tagFilters } = useContext(NavContext);
 
   const {
@@ -18,6 +18,10 @@ const Tasks = () => {
     queryKey: ['tasks'],
     queryFn: fetchTasks,
   });
+
+  useEffect(() => {
+    onTaskLoad(tasks?.length!);
+  }, [tasks]);
 
   if (isLoading) {
     return <Loader className='absolute top-60 left-[50%] -translate-x-1/2' />;
@@ -44,6 +48,7 @@ const Tasks = () => {
     });
   }
 
+  // If no tasks, display image (random between 1-3)
   if (filteredTasks.length === 0) {
     const text = hideDone ? 'You have no pending tasks' : 'You have no tasks';
     const randomIllustration = 'illustration-' + Math.floor(Math.random() * (3 - 1 + 1) + 1);
@@ -56,6 +61,7 @@ const Tasks = () => {
     );
   }
 
+  // Display tasks
   return (
     <div className='flex flex-col items-start gap-6 md:flex-row flex-wrap pb-10'>
       {filteredTasks.map((task) => {

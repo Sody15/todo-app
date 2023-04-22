@@ -6,19 +6,26 @@ import { signOut } from 'next-auth/react';
 import { IoMdSettings } from 'react-icons/io';
 import { GoPlus } from 'react-icons/go';
 import useClickOutside from '@/hooks/useClickOutside';
+import { MAX_TASKS } from '@/global';
 
-const Header = () => {
+const Header = ({ numTasks }: { numTasks: number }) => {
   const [isAddTask, setIsAddTask] = useState(false);
 
   const settingsRef = useRef<HTMLButtonElement>(null);
 
   const { isOpen: isSettingsOpen, setIsOpen: setIsSettingsOpen } = useClickOutside(false, settingsRef);
 
+  const addTask = () => {
+    if (numTasks < MAX_TASKS) {
+      setIsAddTask((prevState) => !prevState);
+    }
+  };
+
   return (
     <header className='flex justify-between items-center py-3'>
       <Logo />
       <div className='flex justify-center gap-4 items-center'>
-        <button type='button' onClick={() => setIsAddTask((prevState) => !prevState)}>
+        <button type='button' onClick={addTask}>
           <GoPlus size={40} />
         </button>
         <button className='relative' onClick={() => setIsSettingsOpen((prevVal) => !prevVal)} ref={settingsRef}>

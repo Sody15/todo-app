@@ -9,12 +9,8 @@ export const signUp = (user: User): Promise<any> => {
   }).then(async (res) => {
     const response = await res.json();
     if (!res.ok) {
-      console.log(response.message);
       throw Error(response.message);
-      return;
     }
     return response;
-
-    // return await res.json();
   });
 };
