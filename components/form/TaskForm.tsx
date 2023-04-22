@@ -90,11 +90,11 @@ const TaskForm: FC<{
       client.setQueryData(['tasks'], (tasks: Task[] | undefined) => {
         if (tasks) {
           return [
-            ...tasks,
             {
               _id: insertedId,
               ...formData,
             },
+            ...tasks,
           ];
         }
       });

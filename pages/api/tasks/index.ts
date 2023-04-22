@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       if (req.method === 'GET') {
         // Get all tasks by userId
-        data = await col.find({ userId: userId }).project({ userId: 0 }).toArray();
+        data = await col.find({ userId: userId }).sort({ _id: -1 }).project({ userId: 0 }).toArray();
 
         res.status(200).json(data);
       } else if (req.method === 'POST') {
