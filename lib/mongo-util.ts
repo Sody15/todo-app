@@ -7,8 +7,8 @@ class MongoUtil {
 
   // Define a static method for getting a reference to the database instance.
   static async getDb(): Promise<Db> {
-    console.log('db is - ' + MongoUtil.db);
     if (!MongoUtil.db) {
+      console.log('Create connection');
       MongoUtil.db = await MongoClient.connect(<string>process.env.MONGODB_URI)
         .then((client) => client.db())
         .catch(() => {
