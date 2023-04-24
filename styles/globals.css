@@ -31,3 +31,7 @@ button.secondary {
 input:focus {
   outline: none;
 }
+
+form {
+  @apply overflow-hidden;
+}

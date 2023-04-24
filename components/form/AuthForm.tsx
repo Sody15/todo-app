@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { Logo } from '@components';
+import { Loader, Logo } from '@components';
 import useInput from '@/hooks/useInput';
 import { PASSWORD_RULES, USERNAME_RULES } from '@/global';
 import { signUp } from '@/services/user-service';
@@ -34,7 +34,7 @@ const AuthForm = () => {
     onBlur: blurPassword,
   } = useInput((pw) => PASSWORD_RULES.regex.test(pw));
 
-  const [formType, setFormType] = useState<FormType>('Sign Up');
+  const [formType, setFormType] = useState<FormType>('Login');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -99,9 +99,15 @@ const AuthForm = () => {
 
   return (
     <form
-      className='bg-white p-6 md:shadow-2xl w-full max-w-2xl md:rounded-xl md:p-12 overflow-scroll'
+      className='bg-white p-6 md:shadow-2xl w-full max-w-2xl md:rounded-xl md:p-12 relative'
       onSubmit={submitHandler}
     >
+      {isSubmitting && (
+        <>
+          <div className='absolute bg-gray-50 opacity-50 w-full h-full z-40'></div>
+          <Loader className='absolute left-[50%] -translate-x-1/2 top-1/3 z-50' />
+        </>
+      )}
       <div className='flex justify-center mb-6'>
         <Logo />
       </div>
@@ -159,7 +165,7 @@ const AuthForm = () => {
         </button>
       </div>
       <div className='flex justify-center items-center gap-x-3 py-3'>
-        {formType === 'Sign Up' ? <p>Have an account?</p> : <p>Don&#39;t Have an account?</p>}
+        {formType === 'Sign Up' ? <p>Have an account?</p> : <p>Don&#39;t have an account?</p>}
         <button id='login' name='login' className='secondary' type='button' onClick={changeFormType}>
           {formType === 'Login' ? 'Sign Up' : 'Login'}
         </button>

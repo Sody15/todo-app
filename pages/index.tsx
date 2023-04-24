@@ -61,7 +61,7 @@ const LandingPage = () => {
       </Head>
 
       <Header numTasks={numTasks} />
-      <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] '>
+      <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] relative'>
         <Nav />
         <Tasks onTaskLoad={(numTasks) => setNumTasks(numTasks)} />
       </main>
