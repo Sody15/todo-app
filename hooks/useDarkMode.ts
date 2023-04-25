@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function useDarkMode(): [boolean, Dispatch<SetStateAction<boolean>>] {
+export default function useDarkMode(): [boolean, () => void] {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Set mode on init- OS settings
@@ -32,5 +32,10 @@ export default function useDarkMode(): [boolean, Dispatch<SetStateAction<boolean
     }
   }, [isDarkMode]);
 
-  return [isDarkMode, setIsDarkMode];
+  // Toggle state
+  const toggleDarkMode = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+
+  return [isDarkMode, toggleDarkMode];
 }

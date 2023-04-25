@@ -6,6 +6,8 @@ import { Header, Nav, Tasks } from '@components';
 import NavContext from '@/context/NavContext';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import useDarkMode from '@/hooks/useDarkMode';
+import DarkModeContext from '@/context/DarkModeContext';
 
 // Redirect to /auth page if no session exists
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -26,6 +28,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const LandingPage = () => {
+  // Dark Mode
+  const [isDarkMode, toggleDarkMode] = useDarkMode();
+
   // Header State
   const [numTasks, setNumTasks] = useState(0);
 
@@ -42,30 +47,32 @@ const LandingPage = () => {
   };
 
   return (
-    <NavContext.Provider
-      value={{
-        hideDone,
-        toggleHideDone,
-        tagFilters,
-        updateFilters,
-      }}
-    >
-      <Head>
-        <title>Todo</title>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width, maximum-scale=1.0' />
-        <meta
-          name='description'
-          content='Simple todo app that helps you keep track of all those little important things in life.'
-        />
-      </Head>
+    <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
+      <NavContext.Provider
+        value={{
+          hideDone,
+          toggleHideDone,
+          tagFilters,
+          updateFilters,
+        }}
+      >
+        <Head>
+          <title>Todo</title>
+          <meta charSet='utf-8' />
+          <meta name='viewport' content='initial-scale=1.0, width=device-width, maximum-scale=1.0' />
+          <meta
+            name='description'
+            content='Simple todo app that helps you keep track of all those little important things in life.'
+          />
+        </Head>
 
-      <Header numTasks={numTasks} />
-      <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] relative'>
-        <Nav />
-        <Tasks onTaskLoad={(numTasks) => setNumTasks(numTasks)} />
-      </main>
-    </NavContext.Provider>
+        <Header numTasks={numTasks} />
+        <main className='md:grid md:gap-16 md:pt-10 md:grid-cols-[12rem_auto] relative'>
+          <Nav />
+          <Tasks onTaskLoad={(numTasks) => setNumTasks(numTasks)} />
+        </main>
+      </NavContext.Provider>
+    </DarkModeContext.Provider>
   );
 };
 
