@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { TaskForm, Portal, Logo } from '@components';
 import { signOut } from 'next-auth/react';
@@ -7,8 +7,8 @@ import { IoMdSettings } from 'react-icons/io';
 import { GoPlus } from 'react-icons/go';
 import { MdDarkMode, MdOutlineDarkMode } from 'react-icons/md';
 import useClickOutside from '@/hooks/useClickOutside';
-import { MAX_TASKS } from '@/global';
 import useDarkMode from '@/hooks/useDarkMode';
+import { MAX_TASKS } from '@/global';
 
 const Header = ({ numTasks }: { numTasks: number }) => {
   const [isAddTask, setIsAddTask] = useState(false);
