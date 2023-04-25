@@ -1,5 +1,4 @@
 import React, { FC, FormEvent, useEffect, useReducer, useRef, useState } from 'react';
-import { Ubuntu } from 'next/font/google';
 
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

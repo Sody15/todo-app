@@ -1,5 +1,5 @@
 import useClickOutside from '@/hooks/useClickOutside';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef } from 'react';
 
 const Menu: FC<{ onEdit: () => void; onDelete: () => void }> = ({ onEdit, onDelete }) => {
   const menuRef = useRef<HTMLDivElement>(null);

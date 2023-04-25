@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
-import { Checkbox, Tag, TagList } from '@components';
+import { Checkbox, TagList } from '@components';
 import NavContext from '@/context/NavContext';
 
 const Nav = () => {
