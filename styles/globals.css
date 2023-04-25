@@ -36,6 +36,6 @@ form {
   @apply overflow-hidden;
 }
 
-.nav button {
+.nav button:not(.bg-gray-100) {
   @apply dark:text-white;
 }
