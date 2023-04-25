@@ -28,10 +28,15 @@ const Header = ({ numTasks }: { numTasks: number }) => {
     <header className='flex justify-between items-center py-3 dark:text-white'>
       <Logo />
       <div className='flex justify-center gap-4 items-center'>
-        <button type='button' onClick={addTask}>
+        <button type='button' onClick={addTask} name='add-task'>
           <GoPlus size={40} />
         </button>
-        <button className='relative' onClick={() => setIsSettingsOpen((prevVal) => !prevVal)} ref={settingsRef}>
+        <button
+          className='relative'
+          onClick={() => setIsSettingsOpen((prevVal) => !prevVal)}
+          ref={settingsRef}
+          name='dark-mode'
+        >
           <IoMdSettings size={40} />
           {isSettingsOpen && (
             <div className='absolute right-0 top-full bg-white rounded-xl shadow-lg z-10'>
