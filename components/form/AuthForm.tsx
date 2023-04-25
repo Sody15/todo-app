@@ -148,6 +148,7 @@ const AuthForm = () => {
           <button
             type='button'
             className='absolute cursor-pointer right-0 bg-custom-blue h-full px-5 rounded-r-lg text-white hover:bg-stone-500 transition-colors duration-300'
+            name='show-hide-password'
             onClick={() => setShowPassword((prevVal) => !prevVal)}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
