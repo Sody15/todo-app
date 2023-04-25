@@ -32,7 +32,7 @@ const Tag: FC<{
         'cursor-default': !showText,
       })}
       type='button'
-      name={`tag-${text}`}
+      aria-label={`tag-${text}`}
       onClick={() => setIsSelected((prevState) => !prevState)}
     >
       <span className='rounded-3xl h-10 w-10 inline-block' style={{ backgroundColor: tags.get(text) }}></span>
