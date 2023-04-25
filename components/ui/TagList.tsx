@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { TAGS } from '@/global/constants';
-
 import { Tag } from '@components';
 
 const TagList: FC<{
@@ -40,5 +38,7 @@ const TagList: FC<{
     </>
   );
 };
+
+const TAGS = ['work', 'study', 'entertainment', 'family'];
 
 export default TagList;

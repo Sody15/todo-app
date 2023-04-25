@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang='en'>
       <Head />
       <div id='portal' />
-      <body className='px-6'>
+      <body className='px-6 dark:bg-zinc-700'>
         <Main />
         <NextScript />
       </body>

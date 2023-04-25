@@ -35,3 +35,7 @@ input:focus {
 form {
   @apply overflow-hidden;
 }
+
+.nav button {
+  @apply dark:text-white;
+}

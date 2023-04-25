@@ -5,11 +5,14 @@ import { signOut } from 'next-auth/react';
 
 import { IoMdSettings } from 'react-icons/io';
 import { GoPlus } from 'react-icons/go';
+import { MdDarkMode, MdOutlineDarkMode } from 'react-icons/md';
 import useClickOutside from '@/hooks/useClickOutside';
 import { MAX_TASKS } from '@/global';
+import useDarkMode from '@/hooks/useDarkMode';
 
 const Header = ({ numTasks }: { numTasks: number }) => {
   const [isAddTask, setIsAddTask] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useDarkMode();
 
   const settingsRef = useRef<HTMLButtonElement>(null);
 
@@ -22,7 +25,7 @@ const Header = ({ numTasks }: { numTasks: number }) => {
   };
 
   return (
-    <header className='flex justify-between items-center py-3'>
+    <header className='flex justify-between items-center py-3 dark:text-white'>
       <Logo />
       <div className='flex justify-center gap-4 items-center'>
         <button type='button' onClick={addTask}>
@@ -34,6 +37,14 @@ const Header = ({ numTasks }: { numTasks: number }) => {
             <div className='absolute right-0 top-full bg-white rounded-xl shadow-lg z-10'>
               <div className='p-4 w-48 text-left text-gray-400 hover:bg-gray-50 rounded-t-xl' onClick={() => signOut()}>
                 Logout
+              </div>
+              <div
+                className='p-4 w-48 text-left text-gray-400 hover:bg-gray-50 rounded-b-xl flex items-center gap-3'
+                onClick={() => setIsDarkMode((prevVal) => !prevVal)}
+              >
+                Dark Mode
+                {isDarkMode && <MdDarkMode size={30} />}
+                {!isDarkMode && <MdOutlineDarkMode size={30} />}
               </div>
             </div>
           )}
