@@ -1,5 +1,4 @@
 import { AuthForm } from '@/components';
-import useDarkMode from '@/hooks/useDarkMode';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
@@ -23,7 +22,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const AuthPage = () => {
-  const [isDarkMode, setIsDarkMode] = useDarkMode();
   return (
     <>
       <Head>

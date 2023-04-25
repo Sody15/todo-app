@@ -1,12 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export default function useDarkMode(): [boolean, Dispatch<SetStateAction<boolean>>] {
-  console.log('inside 1');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Dark mode
+  // Set mode on init- OS settings
   useEffect(() => {
-    console.log('inside 2');
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
 
     const applyDark = (mql: MediaQueryList | MediaQueryListEvent) => {
@@ -27,7 +25,6 @@ export default function useDarkMode(): [boolean, Dispatch<SetStateAction<boolean
 
   // Listen for change on state variable
   useEffect(() => {
-    console.log('inside 3');
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {

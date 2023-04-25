@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const LandingPage = () => {
-  // Header Context
+  // Header State
   const [numTasks, setNumTasks] = useState(0);
 
   // Nav Context

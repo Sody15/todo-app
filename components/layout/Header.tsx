@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 import { TaskForm, Portal, Logo } from '@components';
 import { signOut } from 'next-auth/react';
@@ -7,12 +7,12 @@ import { IoMdSettings } from 'react-icons/io';
 import { GoPlus } from 'react-icons/go';
 import { MdDarkMode, MdOutlineDarkMode } from 'react-icons/md';
 import useClickOutside from '@/hooks/useClickOutside';
-import useDarkMode from '@/hooks/useDarkMode';
 import { MAX_TASKS } from '@/global';
+import DarkModeContext from '@/context/DarkModeContext';
 
 const Header = ({ numTasks }: { numTasks: number }) => {
   const [isAddTask, setIsAddTask] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useDarkMode();
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   const settingsRef = useRef<HTMLButtonElement>(null);
 
@@ -40,7 +40,7 @@ const Header = ({ numTasks }: { numTasks: number }) => {
               </div>
               <div
                 className='p-4 w-48 text-left text-gray-400 hover:bg-gray-50 rounded-b-xl flex items-center gap-3'
-                onClick={() => setIsDarkMode((prevVal) => !prevVal)}
+                onClick={toggleDarkMode}
               >
                 Dark Mode
                 {isDarkMode && <MdDarkMode size={30} />}
