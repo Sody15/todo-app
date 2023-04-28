@@ -16,10 +16,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"],
-      "@components": ["./components/index"],
-      "@global": ["./global/index"],
-      "@models": ["./models/index"]
+      "@/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

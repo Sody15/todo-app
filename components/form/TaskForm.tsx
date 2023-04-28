@@ -3,7 +3,7 @@ import React, { FC, FormEvent, useEffect, useReducer, useRef, useState } from 'r
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Loader, TagList } from '@components';
+import { Loader, TagList } from '@/components';
 import { Task } from '@/models';
 import { addTask, updateTask } from '@/services/task-service';
 import { DESC_LENGTH, TITLE_LENGTH } from '@/global';

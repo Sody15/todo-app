@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 
-import { TaskForm, Portal, Logo } from '@components';
+import { TaskForm, Portal, Logo } from '@/components';
 import { signOut } from 'next-auth/react';
 
 import { IoMdSettings } from 'react-icons/io';

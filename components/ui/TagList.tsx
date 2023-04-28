@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { Tag } from '@components';
+import { Tag } from '@/components';
 
 const TagList: FC<{
   tags?: string[];
   onTagChange: (tags: string[]) => void;
-}> = ({ tags, onTagChange }) => {
-  const [selectedTags, setSelectedTags] = useState(tags || []);
+}> = ({ tags = [], onTagChange }) => {
+  const [selectedTags, setSelectedTags] = useState(tags);
 
   const addTag = (text: string) => {
     if (!selectedTags.includes(text)) {
@@ -20,7 +20,6 @@ const TagList: FC<{
 
   useEffect(() => {
     onTagChange(selectedTags);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTags]);
 
   return (

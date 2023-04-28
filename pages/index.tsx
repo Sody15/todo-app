@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Head from 'next/head';
 
-import { Header, Nav, Tasks } from '@components';
+import { Header, Nav, Tasks } from '@/components';
 import NavContext from '@/context/NavContext';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';

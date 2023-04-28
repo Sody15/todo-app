@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { Loader, Logo } from '@components';
+import { Loader, Logo } from '@/components';
 import useInput from '@/hooks/useInput';
 import { PASSWORD_RULES, USERNAME_RULES } from '@/global';
 import { signUp } from '@/services/user-service';
