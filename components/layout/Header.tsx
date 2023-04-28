@@ -9,6 +9,7 @@ import { MdDarkMode, MdOutlineDarkMode } from 'react-icons/md';
 import useClickOutside from '@/hooks/useClickOutside';
 import { MAX_TASKS } from '@/global';
 import DarkModeContext from '@/context/DarkModeContext';
+import { CSSTransition } from 'react-transition-group';
 
 const Header = ({ numTasks }: { numTasks: number }) => {
   const [isAddTask, setIsAddTask] = useState(false);
@@ -55,11 +56,11 @@ const Header = ({ numTasks }: { numTasks: number }) => {
           )}
         </button>
       </div>
-      {isAddTask && (
-        <Portal>
+      <Portal>
+        <CSSTransition in={isAddTask} timeout={300} classNames='popup' unmountOnExit>
           <TaskForm onClose={() => setIsAddTask(false)} />
-        </Portal>
-      )}
+        </CSSTransition>
+      </Portal>
     </header>
   );
 };

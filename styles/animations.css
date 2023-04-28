@@ -1,0 +1,14 @@
+.popup {
+  &-enter-active {
+    @apply !scale-105 opacity-100;
+  }
+  &-enter-done {
+    @apply !scale-100 opacity-100;
+  }
+  &-exit {
+    @apply opacity-100;
+  }
+  &-exit-active {
+    @apply scale-0 opacity-0;
+  }
+}

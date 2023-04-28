@@ -164,13 +164,9 @@ const TaskForm: FC<{
 
   return (
     <>
-      {
-        // Backdrop
-      }
-      <div className='backdrop left-0 absolute h-full w-full bg-black bg-opacity-60 z-40' onClick={onClose}></div>
       <form
         className={clsx(
-          'fixed bg-white p-6 z-50 h-screen w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12 overflow-scroll',
+          'fixed bg-white p-6 z-50 h-screen w-full left-1/2 -translate-x-1/2 lg:translate-y-1/4 shadow-lg max-w-3xl lg:h-auto md:rounded-xl md:p-12 overflow-scroll origin-center transition-all duration-300 scale-0',
           ubuntu.className
         )}
         onSubmit={submitHandler}
@@ -250,6 +246,10 @@ const TaskForm: FC<{
           </div>
         </div>
       </form>
+      {
+        // Backdrop
+      }
+      <div className='backdrop left-0 absolute h-full w-full bg-black bg-opacity-60 z-40' onClick={onClose}></div>
     </>
   );
 };
