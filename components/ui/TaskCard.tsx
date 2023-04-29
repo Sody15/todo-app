@@ -6,6 +6,7 @@ import { TaskForm, Checkbox, Loader, Menu, Portal, Tag } from '@/components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteTask, updateTask } from '@/services/task-service';
 import { ObjectId } from 'mongodb';
+import { CSSTransition } from 'react-transition-group';
 
 const DESCR_DISPLAY_LENGTH = 300;
 
@@ -128,11 +129,11 @@ const TaskCard: FC<{ task: Task }> = ({ task }) => {
       {
         // Add Task Form on Edit
       }
-      {isUpdateTask && (
-        <Portal>
+      <Portal>
+        <CSSTransition in={isUpdateTask} timeout={300} classNames='popup' unmountOnExit>
           <TaskForm task={task} type='Update' onClose={() => setIsUpdateTask(false)} />
-        </Portal>
-      )}
+        </CSSTransition>
+      </Portal>
     </>
   );
 };
